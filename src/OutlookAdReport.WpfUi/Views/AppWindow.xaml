@@ -1,0 +1,43 @@
+﻿<reactiveUi:ReactiveWindow
+    x:TypeArguments="viewModels:AppViewModel" 
+    x:Class="OutlookAdReport.WpfUi.Views.AppWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:OutlookAdReport.WpfUi"
+    xmlns:reactiveUi="http://reactiveui.net"
+    xmlns:viewModels="clr-namespace:OutlookAdReport.WpfUi.ViewModels"
+    xmlns:views="clr-namespace:OutlookAdReport.WpfUi.Views"
+    mc:Ignorable="d"
+    Title="OutlookAdReport" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <views:SearchView x:Name="SearchView" />
+            <GroupBox Header="Termine abfragen" Visibility="Hidden">
+                <Grid Margin="2,2,2,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0">Von:</Label>
+                    <DatePicker Name="FromDatePicker" Grid.Column="1" Grid.Row="0"></DatePicker>
+                    <Label Grid.Column="0" Grid.Row="1">Bis:</Label>
+                    <DatePicker Name="TillDatePicker" Grid.Column="1" Grid.Row="1"></DatePicker>
+                    <Button Name="QueryAppointmentsButton" Grid.Column="1" Grid.Row="2">Termine auslesen</Button>
+                    <ProgressBar Name="QueryingProgressBar" Grid.Column="1" Grid.Row="3" IsIndeterminate="True" Orientation="Horizontal" Height="15" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</reactiveUi:ReactiveWindow>
