@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Configuration;
+using System.Reflection;
 using System.Windows;
 using ReactiveUI;
 using Splat;

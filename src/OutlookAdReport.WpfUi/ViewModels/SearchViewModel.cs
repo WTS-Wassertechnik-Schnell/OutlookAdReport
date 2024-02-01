@@ -42,6 +42,9 @@ public class SearchViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _till, value);
     }
 
+    /// <summary> Queries appointments asynchronous.</summary>
+    /// <param name="ct"> A token that allows processing to be cancelled. </param>
+    /// <returns> A Task.</returns>
     public async Task QueryAppointmentsAsync(CancellationToken ct)
     {
         await Task.Delay(TimeSpan.FromSeconds(3), ct);

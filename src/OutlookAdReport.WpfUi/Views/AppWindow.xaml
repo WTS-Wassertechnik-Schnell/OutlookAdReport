@@ -18,26 +18,6 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <views:SearchView x:Name="SearchView" />
-            <GroupBox Header="Termine abfragen" Visibility="Hidden">
-                <Grid Margin="2,2,2,2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0">Von:</Label>
-                    <DatePicker Name="FromDatePicker" Grid.Column="1" Grid.Row="0"></DatePicker>
-                    <Label Grid.Column="0" Grid.Row="1">Bis:</Label>
-                    <DatePicker Name="TillDatePicker" Grid.Column="1" Grid.Row="1"></DatePicker>
-                    <Button Name="QueryAppointmentsButton" Grid.Column="1" Grid.Row="2">Termine auslesen</Button>
-                    <ProgressBar Name="QueryingProgressBar" Grid.Column="1" Grid.Row="3" IsIndeterminate="True" Orientation="Horizontal" Height="15" />
-                </Grid>
-            </GroupBox>
         </StackPanel>
     </Grid>
 </reactiveUi:ReactiveWindow>
