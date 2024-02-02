@@ -6,9 +6,15 @@ namespace OutlookAdReport.WpfUi.ViewModels;
 /// <summary> A ViewModel for the search.</summary>
 public class SearchViewModel : ReactiveObject
 {
+    /// <summary> Gets the application view model.</summary>
+    /// <value> The application view model.</value>
+    public AppViewModel AppViewModel { get; }
+
     /// <summary> Default constructor.</summary>
-    public SearchViewModel()
+    public SearchViewModel(AppViewModel appViewModel)
     {
+        AppViewModel = appViewModel;
+
         var today = DateTime.Today;
         var month = new DateTime(today.Year, today.Month, 1);
 

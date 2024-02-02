@@ -12,7 +12,8 @@ public partial class AppWindow
         InitializeComponent();
         ViewModel = new AppViewModel();
         SearchView.ViewModel = ViewModel.SearchViewModel;
-
+        LoginView.ViewModel = ViewModel.LoginViewModel;
+        
         // bindings
         this.WhenActivated(disposableRegistration =>
         {

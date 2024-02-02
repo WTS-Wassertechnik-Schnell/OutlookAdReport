@@ -24,8 +24,11 @@ public partial class SearchView
                     view => view.TillDatePicker.SelectedDate)
                 .DisposeWith(disposableRegistration);
 
-            this.WhenAnyValue(x => x.ViewModel!.From, x => x.ViewModel!.Till,
-                    (from, till) => from <= till)
+            this.WhenAnyValue(
+                    x => x.ViewModel!.From, 
+                    x => x.ViewModel!.Till,
+                    x => x.ViewModel!.AppViewModel.LoginViewModel.LoggedIn,
+                    (from, till, loggedIn) => from <= till && loggedIn)
                 .BindTo(this, x => x.QueryAppointmentsButton.IsEnabled);
 
             this.WhenAnyObservable(x => x.ViewModel!.QueryAppointmentsCommand.IsExecuting)

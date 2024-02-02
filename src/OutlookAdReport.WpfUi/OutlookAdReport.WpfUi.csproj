@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\check_circle_FILL0_wght400_GRAD0_opsz24.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="favicon.ico" />
   </ItemGroup>
 
@@ -21,6 +25,11 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\check_circle_FILL0_wght400_GRAD0_opsz24.png" />
   </ItemGroup>
 
 </Project>
