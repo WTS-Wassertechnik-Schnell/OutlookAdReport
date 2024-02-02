@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.Options", "OutlookAdReport.Options\OutlookAdReport.Options.csproj", "{FB0EF608-97DD-4604-8401-8882880FEE2E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.Data", "OutlookAdReport.Data\OutlookAdReport.Data.csproj", "{4606C7A9-B11C-42CC-88E6-22CF976A718A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.WpfUi", "OutlookAdReport.WpfUi\OutlookAdReport.WpfUi.csproj", "{53A7FA8E-1927-4CE9-9E22-C4A161B15BA0}"
@@ -14,16 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Pr
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAdReport.ExchangeServer", "OutlookAdReport.ExchangeServer\OutlookAdReport.ExchangeServer.csproj", "{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FB0EF608-97DD-4604-8401-8882880FEE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB0EF608-97DD-4604-8401-8882880FEE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB0EF608-97DD-4604-8401-8882880FEE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB0EF608-97DD-4604-8401-8882880FEE2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4606C7A9-B11C-42CC-88E6-22CF976A718A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4606C7A9-B11C-42CC-88E6-22CF976A718A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4606C7A9-B11C-42CC-88E6-22CF976A718A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +28,10 @@ Global
 		{53A7FA8E-1927-4CE9-9E22-C4A161B15BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53A7FA8E-1927-4CE9-9E22-C4A161B15BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53A7FA8E-1927-4CE9-9E22-C4A161B15BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

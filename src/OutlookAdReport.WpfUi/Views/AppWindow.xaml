@@ -10,17 +10,34 @@
     xmlns:viewModels="clr-namespace:OutlookAdReport.WpfUi.ViewModels"
     xmlns:views="clr-namespace:OutlookAdReport.WpfUi.Views"
     mc:Ignorable="d"
-    Title="OutlookAdReport" Height="450" Width="800">
+    Title="OutlookAdReport" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <views:LoginView x:Name="LoginView" />
-                <views:SearchView x:Name="SearchView" />
-            </StackPanel>
+            <GroupBox Header="Einstellungen">
+                <StackPanel Orientation="Horizontal">
+                    <views:LoginView x:Name="LoginView" />
+                    <views:SearchView x:Name="SearchView" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Name="OutputGroupBox" Header="Ausgabe">
+                <StackPanel>
+                    <GroupBox Header="Fehler / Warnungen">
+                        <ListBox Name="EventListBox">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Message}"></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Termine">
+            </GroupBox>
         </StackPanel>
     </Grid>
 </reactiveUi:ReactiveWindow>

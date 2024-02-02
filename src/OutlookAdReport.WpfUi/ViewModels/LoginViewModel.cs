@@ -1,14 +1,25 @@
 ﻿using ReactiveUI;
 using System.Reactive;
+using DynamicData;
+using OutlookAdReport.Data;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
 
 /// <summary> A ViewModel for the login.</summary>
 public class LoginViewModel : ReactiveObject
 {
+    /// <summary> Gets the application view model.</summary>
+    /// <value> The application view model.</value>
+    public AppViewModel AppViewModel { get; }
+
+    /// <summary> (Immutable) the login service.</summary>
+    private readonly ILoginService _loginService;
+
     /// <summary> Default constructor.</summary>
-    public LoginViewModel()
+    public LoginViewModel(ILoginService loginService, AppViewModel appViewModel)
     {
+        _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
+        AppViewModel = appViewModel;
         LoginCommand = ReactiveCommand.CreateFromTask(LoginAsync);
     }
 
@@ -51,7 +62,17 @@ public class LoginViewModel : ReactiveObject
     /// <returns> A Task.</returns>
     public async Task LoginAsync(CancellationToken ct)
     {
-        await Task.Delay(TimeSpan.FromSeconds(3), ct);
-        LoggedIn = true;
+        LoggedIn = false;
+        var result = await _loginService.LoginAsync(Username, Password);
+        AppViewModel.Events.Clear();
+        if (!result.IsAuthenticated)
+        {
+            AppViewModel.Events.AddRange(result.Errors.Select(e => new EventMessageViewModel
+            {
+                Message = e, 
+                MessageType = EventMessageType.Error
+            }));
+        }
+        LoggedIn = result.IsAuthenticated;
     }
 }
