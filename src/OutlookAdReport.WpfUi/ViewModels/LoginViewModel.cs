@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using System.Reactive;
-using DynamicData;
 using OutlookAdReport.Data;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
@@ -67,11 +66,19 @@ public class LoginViewModel : ReactiveObject
         AppViewModel.Events.Clear();
         if (!result.IsAuthenticated)
         {
-            AppViewModel.Events.AddRange(result.Errors.Select(e => new EventMessageViewModel
+            AppViewModel.Events.Add(new EventMessageViewModel
             {
-                Message = e, 
+                Message = result.Error!,
                 MessageType = EventMessageType.Error
-            }));
+            });
+        }
+        else
+        {
+            AppViewModel.Events.Add(new EventMessageViewModel
+            {
+                Message = "User successfully logged in.",
+                MessageType = EventMessageType.Success
+            });
         }
         LoggedIn = result.IsAuthenticated;
     }

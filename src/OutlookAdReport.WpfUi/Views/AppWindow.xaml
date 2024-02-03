@@ -24,17 +24,23 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Name="OutputGroupBox" Header="Ausgabe">
-                <StackPanel>
-                    <GroupBox Header="Fehler / Warnungen">
-                        <ListBox Name="EventListBox">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Message}"></TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </GroupBox>
-                </StackPanel>
+                <Expander IsExpanded="True">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Nachrichten</TextBlock>
+                            <CheckBox Name="SuccessCheckbox">Erfolge</CheckBox>
+                            <CheckBox Name="WarningCheckbox">Warnungen</CheckBox>
+                            <CheckBox Name="ErrorCheckbox">Fehler</CheckBox>
+                        </StackPanel>
+                    </Expander.Header>
+                    <ListBox Name="EventListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Message}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Expander>
             </GroupBox>
             <GroupBox Header="Termine">
             </GroupBox>

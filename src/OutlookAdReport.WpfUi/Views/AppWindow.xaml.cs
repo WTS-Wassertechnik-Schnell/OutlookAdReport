@@ -30,8 +30,23 @@ public partial class AppWindow
                     view => view.OutputGroupBox.Visibility)
                 .DisposeWith(disposableRegistration);
 
+            this.Bind(ViewModel,
+                vm => vm.ShowSuccess,
+                view => view.SuccessCheckbox.IsChecked)
+                .DisposeWith(disposableRegistration);
+
+            this.Bind(ViewModel,
+                    vm => vm.ShowWarning,
+                    view => view.WarningCheckbox.IsChecked)
+                .DisposeWith(disposableRegistration);
+
+            this.Bind(ViewModel,
+                    vm => vm.ShowError,
+                    view => view.ErrorCheckbox.IsChecked)
+                .DisposeWith(disposableRegistration);
+
             this.OneWayBind(ViewModel, 
-                vm => vm.Events,
+                vm => vm.VisibleEvents,
                 view => view.EventListBox.ItemsSource)
                 .DisposeWith(disposableRegistration);
         });

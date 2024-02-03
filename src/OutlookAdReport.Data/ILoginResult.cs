@@ -7,7 +7,7 @@ public interface ILoginResult
     /// <value> True if this object is authenticated, false if not.</value>
     public bool IsAuthenticated { get; }
 
-    /// <summary> Gets the errors.</summary>
-    /// <value> The errors.</value>
-    public IReadOnlyCollection<string> Errors { get; }
+    /// <summary> Gets the error.</summary>
+    /// <value> The error.</value>
+    public string? Error { get; }
 }

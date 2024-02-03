@@ -16,20 +16,21 @@ public class ExchangeLoginResult : ILoginResult
     {
         Service = service!;
         IsAuthenticated = service != null;
-        Errors = new List<string>().AsReadOnly();
     }
 
-    public ExchangeLoginResult(ServiceRequestException serviceRequestException)
+    /// <summary> Constructor.</summary>
+    /// <param name="serviceRequestException"> The service request exception. </param>
+    public ExchangeLoginResult(Exception serviceRequestException)
     {
         IsAuthenticated = false;
-        Errors = new []{ serviceRequestException.Message }.AsReadOnly();
+        Error = serviceRequestException.Message;
     }
 
     /// <summary> Gets a value indicating whether this object is authenticated.</summary>
     /// <value> True if this object is authenticated, false if not.</value>
     public bool IsAuthenticated { get; }
 
-    /// <summary> Gets the errors.</summary>
-    /// <value> The errors.</value>
-    public IReadOnlyCollection<string> Errors { get; }
+    /// <summary> Gets the error.</summary>
+    /// <value> The error.</value>
+    public string? Error { get; }
 }
