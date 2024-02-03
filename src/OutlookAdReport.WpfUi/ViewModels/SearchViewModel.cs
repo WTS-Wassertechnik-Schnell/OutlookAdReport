@@ -72,8 +72,11 @@ public class SearchViewModel : ReactiveObject
     {
         try
         {
-            var appointments = await QueryService.QueryAppointments(AppViewModel.LoginViewModel.LoginResult!, From, Till);
-            Appointments = new ObservableCollection<AppointmentViewModel>(appointments.Select(a => new AppointmentViewModel(a)));
+            var appointments = await QueryService
+                .QueryAppointments(AppViewModel.LoginViewModel.LoginResult!, From, Till);
+            Appointments = new ObservableCollection<AppointmentViewModel>(appointments
+                .Select(a => new AppointmentViewModel(a))
+                .OrderBy(a => a.Appointment.Start));
         }
         catch (Exception e)
         {

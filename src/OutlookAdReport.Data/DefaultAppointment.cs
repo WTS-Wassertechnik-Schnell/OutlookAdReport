@@ -1,4 +1,6 @@
-﻿namespace OutlookAdReport.Data;
+﻿using System.Text.RegularExpressions;
+
+namespace OutlookAdReport.Data;
 
 /// <summary> A default appointment.</summary>
 public class DefaultAppointment : IAppointment
@@ -16,6 +18,31 @@ public class DefaultAppointment : IAppointment
         Description = description;
         Start = start.ToLocalTime();
         End = end.ToLocalTime();
+
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(Location) && Location.Contains(',') && Location.Length > Location.IndexOf(',') + 1)
+            {
+                Street = Location.Substring(0, Location.IndexOf(',')).Trim();
+                Location = Location.Substring(Location.IndexOf(',')+1).Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(Location) && Location.Length > 7)
+            {
+                var match = Regex.Match(Location, @"\b\d{5}", RegexOptions.Compiled);
+                if (match.Success)
+                {
+                    ZipCode = match.Value;
+                    Location = Location.Replace(ZipCode, "").Trim();
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // ignore
+        }
+
+        City = Location;
     }
 
     /// <summary> Gets or sets the subject.</summary>

@@ -10,7 +10,7 @@ public partial class AppointmentsView
     public AppointmentsView()
     {
         InitializeComponent();
-
+        
         // bindings
         this.WhenActivated(disposableRegistration =>
         {
@@ -22,7 +22,7 @@ public partial class AppointmentsView
 
             this.OneWayBind(ViewModel,
                 vm => vm.Appointments,
-                view => view.AppointmentsListView.ItemsSource)
+                view => view.AppointmentsGrid.ItemsSource)
                 .DisposeWith(disposableRegistration);
         });
     }

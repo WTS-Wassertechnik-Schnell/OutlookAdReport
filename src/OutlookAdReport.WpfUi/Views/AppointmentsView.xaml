@@ -11,36 +11,26 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="250" d:DesignWidth="800">
-    <Expander IsExpanded="True">
-        <Expander.Header>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock>Termine</TextBlock>
-                <TextBlock Name="CountAppointmentsTextBlock" />
-            </StackPanel>
-        </Expander.Header>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ListView Name="AppointmentsListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="250">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="viewModels:AppointmentViewModel">
-                        <Expander IsExpanded="False">
-                            <Expander.Header>
-                                <TextBlock Text="{Binding Header}" />
-                            </Expander.Header>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Appointment.Subject}" />
-                                <TextBlock Text="{Binding Appointment.Location}" />
-                                <xctk:TimePicker IsEnabled="False" ShowButtonSpinner="False" Kind="Local" Value="{Binding Appointment.Start}"/>
-                                <xctk:TimePicker IsEnabled="False" ShowButtonSpinner="False" Kind="Local" Value="{Binding Appointment.End}"/>
-                            </StackPanel>
-                        </Expander>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
-    </Expander>
+    <Grid>
+        <Expander IsExpanded="True">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Termine</TextBlock>
+                    <TextBlock Name="CountAppointmentsTextBlock" />
+                </StackPanel>
+            </Expander.Header>
+            <DataGrid Name="AppointmentsGrid" AutoGenerateColumns="False" MaxHeight="250">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding ShortDate}" />
+                    <DataGridTextColumn Header="Start" Binding="{Binding BeginTime}" />
+                    <DataGridTextColumn Header="Ende" Binding="{Binding EndTime}" />
+                    <DataGridTextColumn Header="Betreff" Binding="{Binding Appointment.Subject}" />
+                    <DataGridTextColumn Header="Straße" Binding="{Binding Appointment.Street}" />
+                    <DataGridTextColumn Header="PLZ" Binding="{Binding Appointment.ZipCode}" />
+                    <DataGridTextColumn Header="Ort" Binding="{Binding Appointment.City}" />
+                    <DataGridTextColumn Header="Beschreibung" Binding="{Binding Appointment.Description}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Expander>
+    </Grid>
 </reactiveUi:ReactiveUserControl>

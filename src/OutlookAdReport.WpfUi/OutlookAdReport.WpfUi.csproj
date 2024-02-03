@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OutlookAdReport.ExchangeServer\OutlookAdReport.ExchangeServer.csproj" />
   </ItemGroup>
 
