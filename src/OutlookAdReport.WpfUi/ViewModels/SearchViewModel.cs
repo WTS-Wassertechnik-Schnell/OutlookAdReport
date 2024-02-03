@@ -91,6 +91,11 @@ public class SearchViewModel : ReactiveObject
             Appointments = new ObservableCollection<AppointmentViewModel>(appointments
                 .Select(a => new AppointmentViewModel(a))
                 .OrderBy(a => a.Appointment.Start));
+            EventService.AddEvent(new EventMessageViewModel
+            {
+                Message = $"Fetched {Appointments.Count} appointments.",
+                MessageType = EventMessageType.Success
+            });
         }
         catch (Exception e)
         {
