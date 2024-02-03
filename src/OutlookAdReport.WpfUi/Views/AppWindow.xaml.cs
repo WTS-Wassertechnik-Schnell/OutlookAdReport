@@ -8,7 +8,7 @@ namespace OutlookAdReport.WpfUi.Views;
 public partial class AppWindow
 {
     /// <summary> Default constructor.</summary>
-    public AppWindow() : this(new AppViewModel(null!, null!))
+    public AppWindow() : this(new AppViewModel(null!, null!, null!))
     {
         
     }

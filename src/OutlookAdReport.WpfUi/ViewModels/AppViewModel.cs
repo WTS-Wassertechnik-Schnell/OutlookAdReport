@@ -3,20 +3,22 @@ using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
 using OutlookAdReport.Data;
+using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
 
 /// <summary> A ViewModel for the application.</summary>
-public class AppViewModel : ReactiveObject
+public class AppViewModel : ReactiveObject, IEventService
 {
     /// <summary> Default constructor.</summary>
-    /// <param name="loginService"> The login service. </param>
-    /// <param name="queryService"> The query service. </param>
-    public AppViewModel(ILoginService loginService, IAppointmentQueryService queryService)
+    /// <param name="loginService">       The login service. </param>
+    /// <param name="queryService">       The query service. </param>
+    /// <param name="loginResultService"> The login result service. </param>
+    public AppViewModel(ILoginService loginService, IAppointmentQueryService queryService, ILoginResultService loginResultService)
     {
-        SearchViewModel = new SearchViewModel(this, queryService);
-        LoginViewModel = new LoginViewModel(this, loginService);
+        SearchViewModel = new SearchViewModel(this, queryService, this, loginResultService);
+        LoginViewModel = new LoginViewModel(this, loginService, this, loginResultService);
 
         ShowSuccess = true;
         ShowWarning = true;
@@ -116,4 +118,17 @@ public class AppViewModel : ReactiveObject
     /// <summary> Gets the visible events.</summary>
     /// <value> The visible events.</value>
     public IReadOnlyCollection<EventMessageViewModel> VisibleEvents => _visibleEvents.Value;
+
+    /// <summary> Clears the events.</summary>
+    public void ClearEvents()
+    {
+        Events.Clear();
+    }
+
+    /// <summary> Adds an event.</summary>
+    /// <param name="messageViewModel"> The message view model. </param>
+    public void AddEvent(EventMessageViewModel messageViewModel)
+    {
+        Events.Add(messageViewModel);
+    }
 }

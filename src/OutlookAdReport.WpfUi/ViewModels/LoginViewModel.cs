@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System.Reactive;
 using OutlookAdReport.Data;
+using OutlookAdReport.WpfUi.Services;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
 
@@ -12,16 +13,26 @@ public class LoginViewModel : ReactiveObject
     public AppViewModel AppViewModel { get; }
 
     /// <summary> (Immutable) the login service.</summary>
-    private readonly ILoginService _loginService;
+    public ILoginService LoginService { get; }
+
+    /// <summary> Gets the event service.</summary>
+    /// <value> The event service.</value>
+    public IEventService EventService { get; }
+
+    public ILoginResultService LoginResultService { get; }
 
     /// <summary> Default constructor.</summary>
     /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
     ///                                             null. </exception>
-    /// <param name="appViewModel"> The application view model. </param>
-    /// <param name="loginService"> (Immutable) the login service. </param>
-    public LoginViewModel(AppViewModel appViewModel, ILoginService loginService)
+    /// <param name="appViewModel">       The application view model. </param>
+    /// <param name="loginService">       (Immutable) the login service. </param>
+    /// <param name="eventService">       The event service. </param>
+    /// <param name="loginResultService"> The login result service. </param>
+    public LoginViewModel(AppViewModel appViewModel, ILoginService loginService, IEventService eventService, ILoginResultService loginResultService)
     {
-        _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
+        LoginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
+        EventService = eventService;
+        LoginResultService = loginResultService;
         AppViewModel = appViewModel;
         LoginCommand = ReactiveCommand.CreateFromTask(LoginAsync);
     }
@@ -60,40 +71,31 @@ public class LoginViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _loggedIn, value);
     }
 
-    private ILoginResult? _loginResult;
-
-    /// <summary> Gets or sets the login result.</summary>
-    /// <value> The login result.</value>
-    public ILoginResult? LoginResult
-    {
-        get => _loginResult;
-        private set => this.RaiseAndSetIfChanged(ref _loginResult, value);
-    }
-
     /// <summary> Login asynchronous.</summary>
     /// <param name="ct"> A token that allows processing to be cancelled. </param>
     /// <returns> A Task.</returns>
     public async Task LoginAsync(CancellationToken ct)
     {
         LoggedIn = false;
-        LoginResult = await _loginService.LoginAsync(Username, Password);
+        var result = await LoginService.LoginAsync(Username, Password);
+        LoginResultService.SetLoginResult(result);
         AppViewModel.Events.Clear();
-        if (!LoginResult.IsAuthenticated)
+        if (!result.IsAuthenticated)
         {
-            AppViewModel.Events.Add(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageViewModel
             {
-                Message = LoginResult.Error!,
+                Message = result.Error!,
                 MessageType = EventMessageType.Error
             });
         }
         else
         {
-            AppViewModel.Events.Add(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageViewModel
             {
                 Message = "User successfully logged in.",
                 MessageType = EventMessageType.Success
             });
         }
-        LoggedIn = LoginResult.IsAuthenticated;
+        LoggedIn = result.IsAuthenticated;
     }
 }

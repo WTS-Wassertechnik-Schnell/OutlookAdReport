@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OutlookAdReport.Data;
 using OutlookAdReport.ExchangeServer;
+using OutlookAdReport.WpfUi.Services;
 using OutlookAdReport.WpfUi.ViewModels;
 using OutlookAdReport.WpfUi.Views;
 using ReactiveUI;
@@ -78,6 +79,8 @@ public partial class App : Application
         services.AddTransient<AppViewModel>();
         
         // services
+        services.AddSingleton<IEventService, AppViewModel>();
+        services.AddSingleton<ILoginResultService, DefaultLoginResultService>();
         services.AddTransient<ILoginService, ExchangeLoginService>();
         services.AddTransient<IAppointmentQueryService, ExchangeAppointmentQueryService>();
     }

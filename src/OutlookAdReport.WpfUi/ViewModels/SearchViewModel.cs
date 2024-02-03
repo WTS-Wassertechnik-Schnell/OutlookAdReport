@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System.Reactive;
 using OutlookAdReport.Data;
+using OutlookAdReport.WpfUi.Services;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
 
@@ -16,11 +17,24 @@ public class SearchViewModel : ReactiveObject
     /// <value> The query service.</value>
     public IAppointmentQueryService QueryService { get; }
 
+    /// <summary> Gets the event service.</summary>
+    /// <value> The event service.</value>
+    public IEventService EventService { get; }
+    /// <summary> Gets the login result service.</summary>
+    /// <value> The login result service.</value>
+    public ILoginResultService LoginResultService { get; }
+
     /// <summary> Default constructor.</summary>
-    public SearchViewModel(AppViewModel appViewModel, IAppointmentQueryService queryService)
+    /// <param name="appViewModel">       The application view model. </param>
+    /// <param name="queryService">       The query service. </param>
+    /// <param name="eventService">       The event service. </param>
+    /// <param name="loginResultService"> The login result service. </param>
+    public SearchViewModel(AppViewModel appViewModel, IAppointmentQueryService queryService, IEventService eventService, ILoginResultService loginResultService)
     {
         AppViewModel = appViewModel;
         QueryService = queryService;
+        EventService = eventService;
+        LoginResultService = loginResultService;
 
         var today = DateTime.Today;
         var month = new DateTime(today.Year, today.Month, 1);
@@ -73,14 +87,14 @@ public class SearchViewModel : ReactiveObject
         try
         {
             var appointments = await QueryService
-                .QueryAppointments(AppViewModel.LoginViewModel.LoginResult!, From, Till);
+                .QueryAppointments(LoginResultService.GetLoginResult(), From, Till);
             Appointments = new ObservableCollection<AppointmentViewModel>(appointments
                 .Select(a => new AppointmentViewModel(a))
                 .OrderBy(a => a.Appointment.Start));
         }
         catch (Exception e)
         {
-            AppViewModel.Events.Add(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageViewModel
             {
                 Message = e.Message,
                 MessageType = EventMessageType.Error
