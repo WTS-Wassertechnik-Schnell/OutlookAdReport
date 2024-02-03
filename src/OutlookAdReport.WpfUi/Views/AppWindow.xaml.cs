@@ -8,7 +8,7 @@ namespace OutlookAdReport.WpfUi.Views;
 public partial class AppWindow
 {
     /// <summary> Default constructor.</summary>
-    public AppWindow() : this(new AppViewModel(null!))
+    public AppWindow() : this(new AppViewModel(null!, null!))
     {
         
     }
@@ -21,6 +21,7 @@ public partial class AppWindow
         ViewModel = viewModel;
         SearchView.ViewModel = ViewModel.SearchViewModel;
         LoginView.ViewModel = ViewModel.LoginViewModel;
+        AppointmentsView.ViewModel = ViewModel.SearchViewModel;
 
         // bindings
         this.WhenActivated(disposableRegistration =>

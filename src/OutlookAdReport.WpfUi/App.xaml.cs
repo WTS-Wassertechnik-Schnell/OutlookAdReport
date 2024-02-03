@@ -36,11 +36,17 @@ public partial class App : Application
     ///                     event data. </param>
     protected override void OnStartup(StartupEventArgs e)
     {
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile(@"Y:\Exchange.Extensions\ExchangeSettings.json", optional: true, reloadOnChange: true);
+        var localSettingsFile = new FileInfo(@"Y:\Exchange.Extensions\ExchangeSettings.json");
 
+        var builder = FileExists(localSettingsFile, 500)
+            ? new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile(localSettingsFile.FullName, optional: true, reloadOnChange: true)
+            : new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        
         Configuration = builder.Build();
 
         var serviceCollection = new ServiceCollection();
@@ -49,6 +55,13 @@ public partial class App : Application
 
         var mainWindow = ServiceProvider.GetRequiredService<AppWindow>();
         mainWindow.Show();
+    }
+
+    public static bool FileExists(FileInfo fileInfo, int millisecondsTimeout)
+    {
+        var task = new Task<bool>(() => fileInfo.Exists);
+        task.Start();
+        return task.Wait(millisecondsTimeout) && task.Result;
     }
 
     /// <summary> Configure services.</summary>
@@ -66,5 +79,6 @@ public partial class App : Application
         
         // services
         services.AddTransient<ILoginService, ExchangeLoginService>();
+        services.AddTransient<IAppointmentQueryService, ExchangeAppointmentQueryService>();
     }
 }

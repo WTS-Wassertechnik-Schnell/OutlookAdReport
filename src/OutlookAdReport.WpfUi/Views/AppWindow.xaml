@@ -42,8 +42,7 @@
                     </ListBox>
                 </Expander>
             </GroupBox>
-            <GroupBox Header="Termine">
-            </GroupBox>
+            <views:AppointmentsView x:Name="AppointmentsView"/>
         </StackPanel>
     </Grid>
 </reactiveUi:ReactiveWindow>

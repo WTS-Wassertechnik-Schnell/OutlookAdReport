@@ -11,10 +11,12 @@ namespace OutlookAdReport.WpfUi.ViewModels;
 public class AppViewModel : ReactiveObject
 {
     /// <summary> Default constructor.</summary>
-    public AppViewModel(ILoginService loginService)
+    /// <param name="loginService"> The login service. </param>
+    /// <param name="queryService"> The query service. </param>
+    public AppViewModel(ILoginService loginService, IAppointmentQueryService queryService)
     {
-        SearchViewModel = new SearchViewModel(this);
-        LoginViewModel = new LoginViewModel(loginService, this);
+        SearchViewModel = new SearchViewModel(this, queryService);
+        LoginViewModel = new LoginViewModel(this, loginService);
 
         ShowSuccess = true;
         ShowWarning = true;

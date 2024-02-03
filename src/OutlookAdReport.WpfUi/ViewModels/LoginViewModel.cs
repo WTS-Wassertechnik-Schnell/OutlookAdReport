@@ -15,7 +15,11 @@ public class LoginViewModel : ReactiveObject
     private readonly ILoginService _loginService;
 
     /// <summary> Default constructor.</summary>
-    public LoginViewModel(ILoginService loginService, AppViewModel appViewModel)
+    /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
+    ///                                             null. </exception>
+    /// <param name="appViewModel"> The application view model. </param>
+    /// <param name="loginService"> (Immutable) the login service. </param>
+    public LoginViewModel(AppViewModel appViewModel, ILoginService loginService)
     {
         _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
         AppViewModel = appViewModel;
@@ -47,7 +51,7 @@ public class LoginViewModel : ReactiveObject
     }
 
     private bool _loggedIn;
-
+    
     /// <summary> Gets or sets a value indicating whether the logged in.</summary>
     /// <value> True if logged in, false if not.</value>
     public bool LoggedIn
@@ -56,19 +60,29 @@ public class LoginViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _loggedIn, value);
     }
 
+    private ILoginResult? _loginResult;
+
+    /// <summary> Gets or sets the login result.</summary>
+    /// <value> The login result.</value>
+    public ILoginResult? LoginResult
+    {
+        get => _loginResult;
+        private set => this.RaiseAndSetIfChanged(ref _loginResult, value);
+    }
+
     /// <summary> Login asynchronous.</summary>
     /// <param name="ct"> A token that allows processing to be cancelled. </param>
     /// <returns> A Task.</returns>
     public async Task LoginAsync(CancellationToken ct)
     {
         LoggedIn = false;
-        var result = await _loginService.LoginAsync(Username, Password);
+        LoginResult = await _loginService.LoginAsync(Username, Password);
         AppViewModel.Events.Clear();
-        if (!result.IsAuthenticated)
+        if (!LoginResult.IsAuthenticated)
         {
             AppViewModel.Events.Add(new EventMessageViewModel
             {
-                Message = result.Error!,
+                Message = LoginResult.Error!,
                 MessageType = EventMessageType.Error
             });
         }
@@ -80,6 +94,6 @@ public class LoginViewModel : ReactiveObject
                 MessageType = EventMessageType.Success
             });
         }
-        LoggedIn = result.IsAuthenticated;
+        LoggedIn = LoginResult.IsAuthenticated;
     }
 }

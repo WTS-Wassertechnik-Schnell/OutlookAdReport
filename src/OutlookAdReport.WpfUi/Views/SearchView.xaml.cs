@@ -32,7 +32,7 @@ public partial class SearchView
                 .BindTo(this, x => x.QueryAppointmentsButton.IsEnabled);
 
             this.WhenAnyObservable(x => x.ViewModel!.QueryAppointmentsCommand.IsExecuting)
-                .BindTo(this, x => x.QueryingProgressBar.Visibility);
+                .BindTo(this, x => x.BusyIndicator.IsBusy);
 
             this.BindCommand(ViewModel,
                 viewModel => viewModel.QueryAppointmentsCommand,

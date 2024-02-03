@@ -36,8 +36,8 @@ public partial class LoginView
                 .BindTo(this, x => x.LoginButton.IsEnabled);
 
             this.WhenAnyObservable(x => x.ViewModel!.LoginCommand.IsExecuting)
-                .BindTo(this, x => x.LoginProgressBar.Visibility);
-
+                .BindTo(this, x => x.BusyIndicator.IsBusy);
+            
             this.BindCommand(ViewModel,
                     viewModel => viewModel.LoginCommand,
                     view => view.LoginButton)

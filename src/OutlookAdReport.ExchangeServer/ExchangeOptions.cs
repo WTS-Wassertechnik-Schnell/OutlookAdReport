@@ -7,7 +7,7 @@ public class ExchangeOptions
 {
     /// <summary> Gets or sets URL of the service.</summary>
     /// <value> The service URL.</value>
-    public string ServiceUrl { get; set; }
+    public string ServiceUrl { get; set; } = string.Empty;
 
     /// <summary> Gets or sets the service version.</summary>
     /// <value> The service version.</value>
