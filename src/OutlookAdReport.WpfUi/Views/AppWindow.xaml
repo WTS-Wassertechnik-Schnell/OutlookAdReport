@@ -9,8 +9,13 @@
     xmlns:reactiveUi="http://reactiveui.net"
     xmlns:viewModels="clr-namespace:OutlookAdReport.WpfUi.ViewModels"
     xmlns:views="clr-namespace:OutlookAdReport.WpfUi.Views"
+    xmlns:views1="clr-namespace:OutlookAdReport.WpfUi.Views"
+    xmlns:converters="clr-namespace:OutlookAdReport.WpfUi.Utils.Converters"
     mc:Ignorable="d"
     Title="OutlookAdReport" Height="450" Width="800" WindowState="Maximized">
+    <Window.Resources>
+        <converters:EventMessageTypeToColorConverter x:Key="StatusToColorConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -36,7 +41,7 @@
                     <ListBox Name="EventListBox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Message}"></TextBlock>
+                                <TextBlock Text="{Binding Message}" Foreground="{Binding MessageType, Converter={StaticResource StatusToColorConverter}}"></TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
