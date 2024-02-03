@@ -39,7 +39,7 @@ public partial class App : Application
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
+            .AddJsonFile(@"Y:\Exchange.Extensions\ExchangeSettings.json", optional: true, reloadOnChange: true);
 
         Configuration = builder.Build();
 
