@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OutlookAdReport.Analyzation\OutlookAdReport.Analyzation.csproj" />
     <ProjectReference Include="..\OutlookAdReport.ExchangeServer\OutlookAdReport.ExchangeServer.csproj" />
   </ItemGroup>
 

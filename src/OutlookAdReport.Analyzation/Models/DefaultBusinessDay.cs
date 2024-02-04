@@ -1,10 +1,24 @@
-﻿using OutlookAdReport.Data.Models;
+﻿using OutlookAdReport.Analyzation.Services;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.Data.Services;
+namespace OutlookAdReport.Analyzation.Models;
 
-/// <summary> Interface for business day.</summary>
-public interface IBusinessDay
+/// <summary> A default business day.</summary>
+public class DefaultBusinessDay : IBusinessDay
 {
+    /// <summary> Constructor.</summary>
+    /// <param name="dayAnalyzerService"> The day analyzer service. </param>
+    /// <param name="appointments">       The appointments. </param>
+    public DefaultBusinessDay(IBusinessDayAnalyzerService dayAnalyzerService, IEnumerable<IAppointment> appointments)
+    {
+        DayAnalyzerService = dayAnalyzerService;
+        Appointments = appointments;
+    }
+
+    /// <summary> Gets the day analyzer service.</summary>
+    /// <value> The day analyzer service.</value>
+    public IBusinessDayAnalyzerService DayAnalyzerService { get; }
+
     /// <summary> Gets or sets the appointments.</summary>
     /// <value> The appointments.</value>
     public IEnumerable<IAppointment> Appointments { get; set; }

@@ -1,6 +1,7 @@
-﻿using OutlookAdReport.Data.Models;
+﻿using OutlookAdReport.Analyzation.Models;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.Data.Services;
+namespace OutlookAdReport.Analyzation.Services;
 
 /// <summary> A service for accessing default business day analyzers information.</summary>
 public class DefaultBusinessDayAnalyzerService : IBusinessDayAnalyzerService

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OutlookAdReport.Data.Options;
+using OutlookAdReport.Analyzation.Options;
 using OutlookAdReport.Data.Services;
 using OutlookAdReport.ExchangeServer.Options;
 using OutlookAdReport.ExchangeServer.Services;
