@@ -6,7 +6,6 @@ using OutlookAdReport.Analyzation.Options;
 using OutlookAdReport.Data.Services;
 using OutlookAdReport.ExchangeServer.Options;
 using OutlookAdReport.ExchangeServer.Services;
-using OutlookAdReport.WpfUi.Services;
 using OutlookAdReport.WpfUi.Utils;
 using OutlookAdReport.WpfUi.ViewModels;
 using OutlookAdReport.WpfUi.Views;

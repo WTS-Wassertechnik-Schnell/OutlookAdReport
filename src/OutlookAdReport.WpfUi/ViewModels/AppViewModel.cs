@@ -1,7 +1,8 @@
 ﻿using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
-using OutlookAdReport.WpfUi.Services;
+using OutlookAdReport.Data.Models;
+using OutlookAdReport.Data.Services;
 using ReactiveUI;
 using Splat;
 
@@ -12,7 +13,7 @@ public class AppViewModel : ReactiveObject
 {
     private readonly ObservableAsPropertyHelper<bool> _hasEvents;
 
-    private readonly ObservableAsPropertyHelper<IReadOnlyCollection<EventMessageViewModel>> _visibleEvents;
+    private readonly ObservableAsPropertyHelper<IReadOnlyCollection<EventMessageModel>> _visibleEvents;
 
     private bool _showError;
 
@@ -81,14 +82,14 @@ public class AppViewModel : ReactiveObject
 
     /// <summary> Gets the visible events.</summary>
     /// <value> The visible events.</value>
-    public IReadOnlyCollection<EventMessageViewModel> VisibleEvents => _visibleEvents.Value;
+    public IReadOnlyCollection<EventMessageModel> VisibleEvents => _visibleEvents.Value;
 
     /// <summary> Makes a filter.</summary>
     /// <param name="success"> True if the operation was a success, false if it failed. </param>
     /// <param name="warning"> True to warning. </param>
     /// <param name="error">   True to error. </param>
     /// <returns> A function delegate that yields a bool.</returns>
-    private static Func<EventMessageViewModel, bool> MakeFilter(bool success, bool warning, bool error)
+    private static Func<EventMessageModel, bool> MakeFilter(bool success, bool warning, bool error)
     {
         return e =>
             (e.MessageType == EventMessageType.Success && success) ||

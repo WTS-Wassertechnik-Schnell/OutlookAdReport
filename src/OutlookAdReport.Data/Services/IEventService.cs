@@ -1,21 +1,21 @@
 ﻿using System.Collections.ObjectModel;
-using OutlookAdReport.WpfUi.ViewModels;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.WpfUi.Services;
+namespace OutlookAdReport.Data.Services;
 
 /// <summary> Interface for event service.</summary>
 public interface IEventService
 {
     /// <summary> Gets the events.</summary>
     /// <value> The events.</value>
-    public ObservableCollection<EventMessageViewModel> Events { get; }
+    public ObservableCollection<EventMessageModel> Events { get; }
 
     /// <summary> Clears the events.</summary>
     public void ClearEvents();
 
     /// <summary> Adds an event.</summary>
     /// <param name="messageViewModel"> The message view model. </param>
-    public void AddEvent(EventMessageViewModel messageViewModel);
+    public void AddEvent(EventMessageModel messageViewModel);
 
     /// <summary> Adds an event.</summary>
     /// <param name="message">     The message. </param>

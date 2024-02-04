@@ -1,6 +1,6 @@
 ﻿using System.Reactive;
+using OutlookAdReport.Data.Models;
 using OutlookAdReport.Data.Services;
-using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
 using Splat;
 
@@ -63,13 +63,13 @@ public class LoginViewModel : ReactiveObject
         var result = await LoginService.LoginAsync(Username, Password);
         EventService.ClearEvents();
         if (!result.IsAuthenticated)
-            EventService.AddEvent(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageModel
             {
                 Message = result.Error!,
                 MessageType = EventMessageType.Error
             });
         else
-            EventService.AddEvent(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageModel
             {
                 Message = "User successfully logged in.",
                 MessageType = EventMessageType.Success

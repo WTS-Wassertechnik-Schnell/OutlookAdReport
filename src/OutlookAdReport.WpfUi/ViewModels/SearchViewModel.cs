@@ -1,6 +1,6 @@
 ﻿using System.Reactive;
+using OutlookAdReport.Data.Models;
 using OutlookAdReport.Data.Services;
-using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
 using Splat;
 
@@ -73,7 +73,7 @@ public class SearchViewModel : ReactiveObject
         try
         {
             await QueryService.QueryAppointments(LoginService.LoginResult!, From, Till);
-            EventService.AddEvent(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageModel
             {
                 Message = $"Fetched {QueryService.Appointments.Count} appointments.",
                 MessageType = EventMessageType.Success
@@ -81,7 +81,7 @@ public class SearchViewModel : ReactiveObject
         }
         catch (Exception e)
         {
-            EventService.AddEvent(new EventMessageViewModel
+            EventService.AddEvent(new EventMessageModel
             {
                 Message = e.Message,
                 MessageType = EventMessageType.Error
