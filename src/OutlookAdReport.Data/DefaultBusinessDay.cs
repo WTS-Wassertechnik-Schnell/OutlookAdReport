@@ -3,10 +3,6 @@
 /// <summary> A default business day.</summary>
 public class DefaultBusinessDay : IBusinessDay
 {
-    /// <summary> Gets the day analyzer service.</summary>
-    /// <value> The day analyzer service.</value>
-    public IBusinessDayAnalyzerService DayAnalyzerService { get; }
-
     /// <summary> Constructor.</summary>
     /// <param name="dayAnalyzerService"> The day analyzer service. </param>
     /// <param name="appointments">       The appointments. </param>
@@ -15,6 +11,10 @@ public class DefaultBusinessDay : IBusinessDay
         DayAnalyzerService = dayAnalyzerService;
         Appointments = appointments;
     }
+
+    /// <summary> Gets the day analyzer service.</summary>
+    /// <value> The day analyzer service.</value>
+    public IBusinessDayAnalyzerService DayAnalyzerService { get; }
 
     /// <summary> Gets or sets the appointments.</summary>
     /// <value> The appointments.</value>

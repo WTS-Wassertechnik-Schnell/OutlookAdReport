@@ -1,27 +1,19 @@
-﻿using OutlookAdReport.WpfUi.ViewModels;
+﻿using System.Reactive.Disposables;
+using OutlookAdReport.WpfUi.ViewModels;
 using ReactiveUI;
-using System.Reactive.Disposables;
+using Splat;
 
 namespace OutlookAdReport.WpfUi.Views;
 
 /// <summary> Form for viewing the application.</summary>
 public partial class AppWindow
 {
-    /// <summary> Default constructor.</summary>
-    public AppWindow() : this(new AppViewModel(null!, null!, null!))
-    {
-        
-    }
-
     /// <summary> Constructor.</summary>
-    /// <param name="viewModel"> The view model. </param>
-    public AppWindow(AppViewModel viewModel)
+    /// <param name="viewModel"> (Optional) The view model. </param>
+    public AppWindow(AppViewModel? viewModel = null)
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        SearchView.ViewModel = ViewModel.SearchViewModel;
-        LoginView.ViewModel = ViewModel.LoginViewModel;
-        AppointmentsView.ViewModel = ViewModel.SearchViewModel;
+        ViewModel = viewModel ?? Locator.Current.GetService<AppViewModel>();
 
         // bindings
         this.WhenActivated(disposableRegistration =>
@@ -32,8 +24,8 @@ public partial class AppWindow
                 .DisposeWith(disposableRegistration);
 
             this.Bind(ViewModel,
-                vm => vm.ShowSuccess,
-                view => view.SuccessCheckbox.IsChecked)
+                    vm => vm.ShowSuccess,
+                    view => view.SuccessCheckbox.IsChecked)
                 .DisposeWith(disposableRegistration);
 
             this.Bind(ViewModel,
@@ -46,9 +38,9 @@ public partial class AppWindow
                     view => view.ErrorCheckbox.IsChecked)
                 .DisposeWith(disposableRegistration);
 
-            this.OneWayBind(ViewModel, 
-                vm => vm.VisibleEvents,
-                view => view.EventListBox.ItemsSource)
+            this.OneWayBind(ViewModel,
+                    vm => vm.VisibleEvents,
+                    view => view.EventListBox.ItemsSource)
                 .DisposeWith(disposableRegistration);
         });
     }

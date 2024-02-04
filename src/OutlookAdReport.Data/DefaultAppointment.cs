@@ -21,10 +21,11 @@ public class DefaultAppointment : IAppointment
 
         try
         {
-            if (!string.IsNullOrWhiteSpace(Location) && Location.Contains(',') && Location.Length > Location.IndexOf(',') + 1)
+            if (!string.IsNullOrWhiteSpace(Location) && Location.Contains(',') &&
+                Location.Length > Location.IndexOf(',') + 1)
             {
                 Street = Location.Substring(0, Location.IndexOf(',')).Trim();
-                Location = Location.Substring(Location.IndexOf(',')+1).Trim();
+                Location = Location.Substring(Location.IndexOf(',') + 1).Trim();
             }
 
             if (!string.IsNullOrWhiteSpace(Location) && Location.Length > 7)

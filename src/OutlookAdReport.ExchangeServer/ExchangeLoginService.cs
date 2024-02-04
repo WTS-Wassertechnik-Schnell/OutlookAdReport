@@ -1,19 +1,15 @@
-﻿using Microsoft.Exchange.WebServices.Data;
-using Microsoft.Extensions.Options;
-using OutlookAdReport.Data;
-using System.Net;
+﻿using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Exchange.WebServices.Data;
+using Microsoft.Extensions.Options;
+using OutlookAdReport.Data;
 
 namespace OutlookAdReport.ExchangeServer;
 
 /// <summary> A service for accessing exchange logins information.</summary>
-public class ExchangeLoginService : ILoginService
+public class ExchangeLoginService : LoginService
 {
-    /// <summary> Gets options for controlling the exchange.</summary>
-    /// <value> Options that control the exchange.</value>
-    public IOptions<ExchangeOptions> ExchangeOptions { get; }
-
     /// <summary> Constructor.</summary>
     /// <param name="exchangeOptions"> Options for controlling the exchange. </param>
     public ExchangeLoginService(IOptions<ExchangeOptions> exchangeOptions)
@@ -21,11 +17,15 @@ public class ExchangeLoginService : ILoginService
         ExchangeOptions = exchangeOptions;
     }
 
+    /// <summary> Gets options for controlling the exchange.</summary>
+    /// <value> Options that control the exchange.</value>
+    public IOptions<ExchangeOptions> ExchangeOptions { get; }
+
     /// <summary> Login asynchronous.</summary>
     /// <param name="user">     The user. </param>
     /// <param name="password"> The password. </param>
     /// <returns> The login.</returns>
-    public async Task<ILoginResult> LoginAsync(string user, string password)
+    public override async Task<ILoginResult> LoginAsync(string user, string password)
     {
         var service = new ExchangeService(ExchangeOptions.Value.ServiceVersion)
         {
@@ -41,21 +41,24 @@ public class ExchangeLoginService : ILoginService
         try
         {
             await service.FindFolders(WellKnownFolderName.Inbox, new FolderView(1));
-            return new ExchangeLoginResult(service);
+            LoginResult = new ExchangeLoginResult(service);
         }
         catch (ServiceRequestException sre)
         {
-            return new ExchangeLoginResult(sre);
+            LoginResult = new ExchangeLoginResult(sre);
         }
+
+        return LoginResult;
     }
 
     /// <summary> Back, called when the certificate validation.</summary>
     /// <param name="sender">          Source of the event. </param>
     /// <param name="certificate">     The certificate. </param>
     /// <param name="chain">           The chain. </param>
-    /// <param name="sslpolicyerrors"> The sslpolicyerrors. </param>
+    /// <param name="sslpolicyerrors"> The ssl-policy-errors. </param>
     /// <returns> True if it succeeds, false if it fails.</returns>
-    private static bool CertificateValidationCallBack(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyerrors)
+    private static bool CertificateValidationCallBack(object sender, X509Certificate certificate, X509Chain chain,
+        SslPolicyErrors sslpolicyerrors)
     {
         return true;
     }

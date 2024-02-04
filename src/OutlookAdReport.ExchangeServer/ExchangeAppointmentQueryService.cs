@@ -7,10 +7,6 @@ namespace OutlookAdReport.ExchangeServer;
 /// <summary> A service for accessing exchange appointment queries information.</summary>
 public class ExchangeAppointmentQueryService : IAppointmentQueryService
 {
-    /// <summary> Gets options for controlling the operation.</summary>
-    /// <value> The options.</value>
-    public IOptions<ExchangeOptions> Options { get; }
-
     /// <summary> Constructor.</summary>
     /// <param name="options"> The options. </param>
     public ExchangeAppointmentQueryService(IOptions<ExchangeOptions> options)
@@ -18,18 +14,22 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
         Options = options;
     }
 
+    /// <summary> Gets options for controlling the operation.</summary>
+    /// <value> The options.</value>
+    public IOptions<ExchangeOptions> Options { get; }
+
     /// <summary> Queries the appointments.</summary>
     /// <param name="loginResult"> The login result. </param>
     /// <param name="start">       The start Date/Time. </param>
     /// <param name="end">         The end Date/Time. </param>
-    /// <returns>An enumerator that allows foreach to be used to process query appointments in this
-    /// collection.</returns>
-    public async Task<IEnumerable<IAppointment>> QueryAppointments(ILoginResult loginResult,DateTime start, DateTime end)
+    /// <returns>
+    ///     An enumerator that allows foreach to be used to process query appointments in this
+    ///     collection.
+    /// </returns>
+    public async Task<IEnumerable<IAppointment>> QueryAppointments(ILoginResult loginResult, DateTime start,
+        DateTime end)
     {
-        if (loginResult is not ExchangeLoginResult exchange)
-        {
-            throw new ArgumentException("Invalod LoginResult.");
-        }
+        if (loginResult is not ExchangeLoginResult exchange) throw new ArgumentException("Invalod LoginResult.");
 
         return await QueryAppointmentsInternal(exchange.Service, start, end);
     }
@@ -38,8 +38,10 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
     /// <param name="service"> The service. </param>
     /// <param name="start">   The start Date/Time. </param>
     /// <param name="end">     The end Date/Time. </param>
-    /// <returns>An enumerator that allows foreach to be used to process query appointments internal
-    /// in this collection.</returns>
+    /// <returns>
+    ///     An enumerator that allows foreach to be used to process query appointments internal
+    ///     in this collection.
+    /// </returns>
     private async Task<IEnumerable<IAppointment>> QueryAppointmentsInternal(ExchangeService service, DateTime start,
         DateTime end)
     {
@@ -66,7 +68,7 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
 
         return appointments
                 .Where(a => Options.Value.RespectPrivacy == false || a.Sensitivity != Sensitivity.Private)
-                .Select(a => 
+                .Select(a =>
                     new DefaultAppointment(a.Subject, a.Location, a.TextBody, a.Start, a.End))
             ;
     }

@@ -22,7 +22,7 @@ public interface IAppointment
     /// <summary> Gets or sets the city.</summary>
     /// <value> The city.</value>
     public string? City { get; set; }
-    
+
     /// <summary> Gets or sets the description.</summary>
     /// <value> The description.</value>
     public string Description { get; set; }

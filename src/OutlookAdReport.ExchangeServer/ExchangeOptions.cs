@@ -16,7 +16,7 @@ public class ExchangeOptions
     /// <summary> Gets or sets a value indicating whether the respect privacy.</summary>
     /// <value> True if respect privacy, false if not.</value>
     /// <remarks>
-    /// Doesn't fetch any appointments with a privacy marker.
+    ///     Doesn't fetch any appointments with a privacy marker.
     /// </remarks>
     public bool RespectPrivacy { get; set; } = true;
 }

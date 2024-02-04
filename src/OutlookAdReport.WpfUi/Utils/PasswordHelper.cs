@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace OutlookAdReport.WpfUi.Utils;
 
@@ -9,18 +9,18 @@ public static class PasswordHelper
     /// <summary> (Immutable) A Dependency Property for the password property.</summary>
     public static readonly DependencyProperty PasswordProperty =
         DependencyProperty.RegisterAttached("Password",
-        typeof(string), typeof(PasswordHelper),
-        new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
+            typeof(string), typeof(PasswordHelper),
+            new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
     /// <summary> (Immutable) A Dependency Property for the attach property.</summary>
     public static readonly DependencyProperty AttachProperty =
         DependencyProperty.RegisterAttached("Attach",
-        typeof(bool), typeof(PasswordHelper), new PropertyMetadata(false, Attach));
+            typeof(bool), typeof(PasswordHelper), new PropertyMetadata(false, Attach));
 
     /// <summary> (Immutable) A Dependency Property for the is updating property.</summary>
     private static readonly DependencyProperty IsUpdatingProperty =
-       DependencyProperty.RegisterAttached("IsUpdating", typeof(bool),
-       typeof(PasswordHelper));
+        DependencyProperty.RegisterAttached("IsUpdating", typeof(bool),
+            typeof(PasswordHelper));
 
 
     /// <summary> Sets an attach.</summary>
@@ -80,10 +80,7 @@ public static class PasswordHelper
         var passwordBox = sender as PasswordBox;
         passwordBox!.PasswordChanged -= PasswordChanged;
 
-        if (!GetIsUpdating(passwordBox))
-        {
-            passwordBox.Password = (string)e.NewValue;
-        }
+        if (!GetIsUpdating(passwordBox)) passwordBox.Password = (string)e.NewValue;
         passwordBox.PasswordChanged += PasswordChanged;
     }
 
@@ -96,15 +93,9 @@ public static class PasswordHelper
         if (sender is not PasswordBox passwordBox)
             return;
 
-        if ((bool)e.OldValue)
-        {
-            passwordBox.PasswordChanged -= PasswordChanged;
-        }
+        if ((bool)e.OldValue) passwordBox.PasswordChanged -= PasswordChanged;
 
-        if ((bool)e.NewValue)
-        {
-            passwordBox.PasswordChanged += PasswordChanged;
-        }
+        if ((bool)e.NewValue) passwordBox.PasswordChanged += PasswordChanged;
     }
 
     /// <summary> Password changed.</summary>

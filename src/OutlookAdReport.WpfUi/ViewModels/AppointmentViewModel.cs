@@ -6,10 +6,6 @@ namespace OutlookAdReport.WpfUi.ViewModels;
 /// <summary> A ViewModel for the appointment.</summary>
 public class AppointmentViewModel : ReactiveObject
 {
-    /// <summary> Gets the appointment.</summary>
-    /// <value> The appointment.</value>
-    public IAppointment Appointment { get; }
-
     /// <summary> Constructor.</summary>
     /// <param name="appointment"> The appointment. </param>
     public AppointmentViewModel(IAppointment appointment)
@@ -22,6 +18,10 @@ public class AppointmentViewModel : ReactiveObject
         BeginTime = appointment.Start.TimeOfDay.ToString(@"hh\:mm");
         EndTime = appointment.End.TimeOfDay.ToString(@"hh\:mm");
     }
+
+    /// <summary> Gets the appointment.</summary>
+    /// <value> The appointment.</value>
+    public IAppointment Appointment { get; }
 
     /// <summary> Gets the header.</summary>
     /// <value> The header.</value>

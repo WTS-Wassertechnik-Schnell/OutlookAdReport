@@ -1,5 +1,7 @@
 ﻿using System.Reactive.Disposables;
+using OutlookAdReport.WpfUi.ViewModels;
 using ReactiveUI;
+using Splat;
 
 namespace OutlookAdReport.WpfUi.Views;
 
@@ -7,9 +9,16 @@ namespace OutlookAdReport.WpfUi.Views;
 public partial class LoginView
 {
     /// <summary> Default constructor.</summary>
-    public LoginView()
+    public LoginView() : this(null)
+    {
+    }
+
+    /// <summary> Default constructor.</summary>
+    /// <param name="viewModel"> (Optional) The view model. </param>
+    public LoginView(LoginViewModel? viewModel = null)
     {
         InitializeComponent();
+        ViewModel = viewModel ?? Locator.Current.GetService<LoginViewModel>();
 
         // bindings
         this.WhenActivated(disposableRegistration =>
@@ -20,12 +29,12 @@ public partial class LoginView
                 .DisposeWith(disposableRegistration);
 
             this.Bind(ViewModel,
-                    viewModel => viewModel.Username,
+                    vm => vm.Username,
                     view => view.UsernameTextBox.Text)
                 .DisposeWith(disposableRegistration);
 
             this.Bind(ViewModel,
-                    viewModel => viewModel.Password,
+                    vm => vm.Password,
                     view => view.PasswordTextBox.Password)
                 .DisposeWith(disposableRegistration);
 
@@ -37,9 +46,9 @@ public partial class LoginView
 
             this.WhenAnyObservable(x => x.ViewModel!.LoginCommand.IsExecuting)
                 .BindTo(this, x => x.BusyIndicator.IsBusy);
-            
+
             this.BindCommand(ViewModel,
-                    viewModel => viewModel.LoginCommand,
+                    vm => vm.LoginCommand,
                     view => view.LoginButton)
                 .DisposeWith(disposableRegistration);
         });
