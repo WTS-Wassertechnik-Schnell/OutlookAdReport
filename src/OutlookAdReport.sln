@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{142213C5-53D3-4C17-B511-0ABD1B645E53}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		OutlookAdReport.sln.DotSettings = OutlookAdReport.sln.DotSettings
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.ExchangeServer", "OutlookAdReport.ExchangeServer\OutlookAdReport.ExchangeServer.csproj", "{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}"
