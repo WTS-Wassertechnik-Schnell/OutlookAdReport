@@ -1,4 +1,5 @@
-﻿using Microsoft.Exchange.WebServices.Data;
+﻿using System.Collections.ObjectModel;
+using Microsoft.Exchange.WebServices.Data;
 using Microsoft.Extensions.Options;
 using OutlookAdReport.Data;
 
@@ -18,6 +19,10 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
     /// <value> The options.</value>
     public IOptions<ExchangeOptions> Options { get; }
 
+    /// <summary> Gets the appointments.</summary>
+    /// <value> The appointments.</value>
+    public ObservableCollection<IAppointment> Appointments { get; } = new();
+
     /// <summary> Queries the appointments.</summary>
     /// <param name="loginResult"> The login result. </param>
     /// <param name="start">       The start Date/Time. </param>
@@ -29,6 +34,7 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
     public async Task<IEnumerable<IAppointment>> QueryAppointments(ILoginResult loginResult, DateTime start,
         DateTime end)
     {
+        Appointments.Clear();
         if (loginResult is not ExchangeLoginResult exchange) throw new ArgumentException("Invalod LoginResult.");
 
         return await QueryAppointmentsInternal(exchange.Service, start, end);
@@ -47,7 +53,7 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
     {
         var calendarFolder = await CalendarFolder.Bind(service, WellKnownFolderName.Calendar);
         var view = new CalendarView(start, end.AddDays(1).AddTicks(-1));
-        var appointments = await service.FindAppointments(calendarFolder.Id, view);
+        var exchangeAppointments = await service.FindAppointments(calendarFolder.Id, view);
 
         var set = new PropertySet
         {
@@ -64,12 +70,17 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
             ItemSchema.Sensitivity
         };
 
-        await service.LoadPropertiesForItems(appointments, set);
+        await service.LoadPropertiesForItems(exchangeAppointments, set);
 
-        return appointments
-                .Where(a => Options.Value.RespectPrivacy == false || a.Sensitivity != Sensitivity.Private)
-                .Select(a =>
-                    new DefaultAppointment(a.Subject, a.Location, a.TextBody, a.Start, a.End))
-            ;
+        var appointments = exchangeAppointments
+            .Where(a => Options.Value.RespectPrivacy == false || a.Sensitivity != Sensitivity.Private)
+            .Select(a =>
+                new DefaultAppointment(a.Subject, a.Location, a.TextBody, a.Start, a.End))
+            .OrderBy(a => a.Start)
+            .ToList();
+
+        foreach (var a in appointments) Appointments.Add(a);
+
+        return appointments;
     }
 }

@@ -15,16 +15,16 @@ public partial class AppointmentsView
 
     /// <summary> Default constructor.</summary>
     /// <param name="viewModel"> (Optional) The view model. </param>
-    public AppointmentsView(SearchViewModel? viewModel = null)
+    public AppointmentsView(AppointmentsViewModel? viewModel = null)
     {
         InitializeComponent();
-        ViewModel = viewModel ?? Locator.Current.GetService<SearchViewModel>();
+        ViewModel = viewModel ?? Locator.Current.GetService<AppointmentsViewModel>();
 
         // bindings
         this.WhenActivated(disposableRegistration =>
         {
             this.WhenAnyValue(
-                    x => x.ViewModel!.Appointments,
+                    x => x.ViewModel!.QueryService.Appointments,
                     appointments => !appointments.Any() ? "(Keine Termine)" : $" ({appointments.Count})")
                 .BindTo(this, x => x.CountAppointmentsTextBlock.Text)
                 .DisposeWith(disposableRegistration);

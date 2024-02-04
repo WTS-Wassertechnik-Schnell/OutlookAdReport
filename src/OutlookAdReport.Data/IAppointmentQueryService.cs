@@ -1,8 +1,14 @@
-﻿namespace OutlookAdReport.Data;
+﻿using System.Collections.ObjectModel;
+
+namespace OutlookAdReport.Data;
 
 /// <summary> Interface for appointment query service.</summary>
 public interface IAppointmentQueryService
 {
+    /// <summary> Gets the appointments.</summary>
+    /// <value> The appointments.</value>
+    public ObservableCollection<IAppointment> Appointments { get; }
+
     /// <summary> Queries the appointments.</summary>
     /// <param name="loginResult"> The login result. </param>
     /// <param name="start">       The start Date/Time. </param>

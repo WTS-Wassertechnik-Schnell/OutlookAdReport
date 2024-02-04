@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Reactive;
+﻿using System.Reactive;
 using OutlookAdReport.Data;
 using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
@@ -10,8 +9,6 @@ namespace OutlookAdReport.WpfUi.ViewModels;
 /// <summary> A ViewModel for the search.</summary>
 public class SearchViewModel : ReactiveObject
 {
-    private ObservableCollection<AppointmentViewModel> _appointments = new();
-
     private DateTime _from;
 
     private DateTime _till;
@@ -68,14 +65,6 @@ public class SearchViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _till, value);
     }
 
-    /// <summary> Gets or sets the appointments.</summary>
-    /// <value> The appointments.</value>
-    public ObservableCollection<AppointmentViewModel> Appointments
-    {
-        get => _appointments;
-        private set => this.RaiseAndSetIfChanged(ref _appointments, value);
-    }
-
     /// <summary> Queries appointments asynchronous.</summary>
     /// <param name="ct"> A token that allows processing to be cancelled. </param>
     /// <returns> A Task.</returns>
@@ -83,14 +72,10 @@ public class SearchViewModel : ReactiveObject
     {
         try
         {
-            var appointments = await QueryService
-                .QueryAppointments(LoginService.LoginResult!, From, Till);
-            Appointments = new ObservableCollection<AppointmentViewModel>(appointments
-                .Select(a => new AppointmentViewModel(a))
-                .OrderBy(a => a.Appointment.Start));
+            await QueryService.QueryAppointments(LoginService.LoginResult!, From, Till);
             EventService.AddEvent(new EventMessageViewModel
             {
-                Message = $"Fetched {Appointments.Count} appointments.",
+                Message = $"Fetched {QueryService.Appointments.Count} appointments.",
                 MessageType = EventMessageType.Success
             });
         }

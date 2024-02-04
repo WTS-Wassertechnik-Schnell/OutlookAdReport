@@ -67,10 +67,11 @@ public class Bootstrapper
         services.AddSingleton<AppViewModel>();
         services.AddSingleton<LoginViewModel>();
         services.AddSingleton<SearchViewModel>();
+        services.AddSingleton<AppointmentsViewModel>();
 
         // services
-        services.AddSingleton<IEventService, AppViewModel>();
-        services.AddTransient<ILoginService, ExchangeLoginService>();
-        services.AddTransient<IAppointmentQueryService, ExchangeAppointmentQueryService>();
+        services.AddSingleton<IEventService, EventService>();
+        services.AddSingleton<ILoginService, ExchangeLoginService>();
+        services.AddSingleton<IAppointmentQueryService, ExchangeAppointmentQueryService>();
     }
 }

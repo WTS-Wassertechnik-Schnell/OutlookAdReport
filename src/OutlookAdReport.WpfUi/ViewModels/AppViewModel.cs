@@ -1,21 +1,18 @@
-﻿using System.Collections.ObjectModel;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
 using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
+using Splat;
 
 namespace OutlookAdReport.WpfUi.ViewModels;
 
 /// <summary> A ViewModel for the application.</summary>
-public class AppViewModel : ReactiveObject, IEventService
+public class AppViewModel : ReactiveObject
 {
     private readonly ObservableAsPropertyHelper<bool> _hasEvents;
 
     private readonly ObservableAsPropertyHelper<IReadOnlyCollection<EventMessageViewModel>> _visibleEvents;
-
-    /// <summary> The events.</summary>
-    private ObservableCollection<EventMessageViewModel> _events;
 
     private bool _showError;
 
@@ -24,13 +21,12 @@ public class AppViewModel : ReactiveObject, IEventService
     private bool _showWarning;
 
     /// <summary> Default constructor.</summary>
-    public AppViewModel()
+    public AppViewModel(IEventService? eventService = null)
     {
+        EventService = eventService ?? Locator.Current.GetService<IEventService>()!;
         ShowSuccess = true;
         ShowWarning = true;
         ShowError = true;
-
-        _events = new ObservableCollection<EventMessageViewModel>();
 
         var observableFilter = this.WhenAnyValue(
                 vm => vm.ShowSuccess,
@@ -38,18 +34,22 @@ public class AppViewModel : ReactiveObject, IEventService
                 vm => vm.ShowError)
             .Select(x => MakeFilter(x.Item1, x.Item2, x.Item3));
 
-        _visibleEvents = Events
+        _visibleEvents = EventService.Events
             .ToObservableChangeSet(x => x)
             .Filter(observableFilter)
             .ToCollection()
             .ToProperty(this, x => x.VisibleEvents);
 
-        _hasEvents = Events
+        _hasEvents = EventService.Events
             .ToObservableChangeSet(x => x)
             .ToCollection()
             .Select(items => items.Any())
             .ToProperty(this, x => x.HasEvents);
     }
+
+    /// <summary> Gets the event service.</summary>
+    /// <value> The event service.</value>
+    public IEventService EventService { get; }
 
     /// <summary> Gets a value indicating whether this object has events.</summary>
     /// <value> True if this object has events, false if not.</value>
@@ -79,30 +79,9 @@ public class AppViewModel : ReactiveObject, IEventService
         set => this.RaiseAndSetIfChanged(ref _showError, value);
     }
 
-    /// <summary> Gets or sets the events.</summary>
-    /// <value> The events.</value>
-    public ObservableCollection<EventMessageViewModel> Events
-    {
-        get => _events;
-        set => this.RaiseAndSetIfChanged(ref _events, value);
-    }
-
     /// <summary> Gets the visible events.</summary>
     /// <value> The visible events.</value>
     public IReadOnlyCollection<EventMessageViewModel> VisibleEvents => _visibleEvents.Value;
-
-    /// <summary> Clears the events.</summary>
-    public void ClearEvents()
-    {
-        Events.Clear();
-    }
-
-    /// <summary> Adds an event.</summary>
-    /// <param name="messageViewModel"> The message view model. </param>
-    public void AddEvent(EventMessageViewModel messageViewModel)
-    {
-        Events.Add(messageViewModel);
-    }
 
     /// <summary> Makes a filter.</summary>
     /// <param name="success"> True if the operation was a success, false if it failed. </param>
