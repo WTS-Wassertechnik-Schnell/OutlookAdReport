@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.Data;
+namespace OutlookAdReport.Data.Services;
 
 /// <summary> Interface for appointment query service.</summary>
 public interface IAppointmentQueryService

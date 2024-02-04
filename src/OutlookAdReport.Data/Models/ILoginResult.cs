@@ -1,4 +1,4 @@
-﻿namespace OutlookAdReport.Data;
+﻿namespace OutlookAdReport.Data.Models;
 
 /// <summary> Interface for login result.</summary>
 public interface ILoginResult

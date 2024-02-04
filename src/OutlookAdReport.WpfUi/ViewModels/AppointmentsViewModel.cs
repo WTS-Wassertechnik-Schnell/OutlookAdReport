@@ -2,7 +2,8 @@
 using System.Reactive.Linq;
 using DynamicData;
 using DynamicData.Binding;
-using OutlookAdReport.Data;
+using OutlookAdReport.Data.Models;
+using OutlookAdReport.Data.Services;
 using ReactiveUI;
 using Splat;
 

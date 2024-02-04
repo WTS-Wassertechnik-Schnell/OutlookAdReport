@@ -1,4 +1,4 @@
-﻿namespace OutlookAdReport.Data;
+﻿namespace OutlookAdReport.Data.Models;
 
 /// <summary> Interface for appointment.</summary>
 public interface IAppointment

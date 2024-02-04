@@ -1,4 +1,4 @@
-﻿namespace OutlookAdReport.Data;
+﻿namespace OutlookAdReport.Data.Models;
 
 /// <summary> Encapsulates the result of an empty login.</summary>
 public class EmptyLoginResult : ILoginResult

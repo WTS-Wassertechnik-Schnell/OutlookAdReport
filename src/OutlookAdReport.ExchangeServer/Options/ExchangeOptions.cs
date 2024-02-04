@@ -1,6 +1,6 @@
 ﻿using Microsoft.Exchange.WebServices.Data;
 
-namespace OutlookAdReport.ExchangeServer;
+namespace OutlookAdReport.ExchangeServer.Options;
 
 /// <summary> An exchange options.</summary>
 public class ExchangeOptions

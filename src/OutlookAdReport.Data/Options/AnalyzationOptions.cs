@@ -1,4 +1,4 @@
-﻿namespace OutlookAdReport.Data;
+﻿namespace OutlookAdReport.Data.Options;
 
 /// <summary> An analyzation options.</summary>
 public class AnalyzationOptions

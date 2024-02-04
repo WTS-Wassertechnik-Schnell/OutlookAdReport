@@ -1,5 +1,5 @@
 ﻿using System.Reactive;
-using OutlookAdReport.Data;
+using OutlookAdReport.Data.Services;
 using OutlookAdReport.WpfUi.Services;
 using ReactiveUI;
 using Splat;

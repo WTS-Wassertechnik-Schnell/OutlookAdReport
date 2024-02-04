@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace OutlookAdReport.Data;
+namespace OutlookAdReport.Data.Models;
 
 /// <summary> A default appointment.</summary>
 public class DefaultAppointment : IAppointment

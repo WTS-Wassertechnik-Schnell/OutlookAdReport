@@ -1,9 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Exchange.WebServices.Data;
 using Microsoft.Extensions.Options;
-using OutlookAdReport.Data;
+using OutlookAdReport.Data.Models;
+using OutlookAdReport.Data.Services;
+using OutlookAdReport.ExchangeServer.Models;
+using OutlookAdReport.ExchangeServer.Options;
 
-namespace OutlookAdReport.ExchangeServer;
+namespace OutlookAdReport.ExchangeServer.Services;
 
 /// <summary> A service for accessing exchange appointment queries information.</summary>
 public class ExchangeAppointmentQueryService : IAppointmentQueryService

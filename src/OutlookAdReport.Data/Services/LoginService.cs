@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.Data;
+namespace OutlookAdReport.Data.Services;
 
 /// <summary> A service for accessing logins information.</summary>
 public abstract class LoginService : ILoginService

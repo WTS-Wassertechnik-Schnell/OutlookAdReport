@@ -1,4 +1,4 @@
-﻿using OutlookAdReport.Data;
+﻿using OutlookAdReport.Data.Models;
 using ReactiveUI;
 
 namespace OutlookAdReport.WpfUi.ViewModels;

@@ -3,9 +3,12 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Exchange.WebServices.Data;
 using Microsoft.Extensions.Options;
-using OutlookAdReport.Data;
+using OutlookAdReport.Data.Models;
+using OutlookAdReport.Data.Services;
+using OutlookAdReport.ExchangeServer.Models;
+using OutlookAdReport.ExchangeServer.Options;
 
-namespace OutlookAdReport.ExchangeServer;
+namespace OutlookAdReport.ExchangeServer.Services;
 
 /// <summary> A service for accessing exchange logins information.</summary>
 public class ExchangeLoginService : LoginService

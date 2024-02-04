@@ -1,7 +1,7 @@
 ﻿using Microsoft.Exchange.WebServices.Data;
-using OutlookAdReport.Data;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.ExchangeServer;
+namespace OutlookAdReport.ExchangeServer.Models;
 
 /// <summary> Encapsulates the result of an exchange login.</summary>
 public class ExchangeLoginResult : ILoginResult

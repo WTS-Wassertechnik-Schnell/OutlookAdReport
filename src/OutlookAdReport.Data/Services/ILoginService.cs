@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
+using OutlookAdReport.Data.Models;
 
-namespace OutlookAdReport.Data;
+namespace OutlookAdReport.Data.Services;
 
 /// <summary> Interface for login service.</summary>
 public interface ILoginService : INotifyPropertyChanged

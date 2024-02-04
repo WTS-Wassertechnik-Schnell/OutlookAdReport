@@ -1,4 +1,6 @@
-﻿namespace OutlookAdReport.Data;
+﻿using OutlookAdReport.Data.Models;
+
+namespace OutlookAdReport.Data.Services;
 
 /// <summary> Interface for business day analyzer service.</summary>
 public interface IBusinessDayAnalyzerService
