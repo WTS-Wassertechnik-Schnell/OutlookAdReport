@@ -25,7 +25,7 @@ public class EventMessageTypeToColorConverter : IValueConverter
         var color = status switch
         {
             EventMessageType.Success => new SolidColorBrush(Colors.Green),
-            EventMessageType.Warning => new SolidColorBrush(Colors.Yellow),
+            EventMessageType.Warning => new SolidColorBrush(Colors.Orange),
             EventMessageType.Error => new SolidColorBrush(Colors.Red),
             _ => new SolidColorBrush(Colors.White)
         };

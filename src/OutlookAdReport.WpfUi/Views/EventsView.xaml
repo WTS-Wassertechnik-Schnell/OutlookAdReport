@@ -1,0 +1,40 @@
+﻿<reactiveUi:ReactiveUserControl
+    x:TypeArguments="viewModels:EventsViewModel" 
+    x:Class="OutlookAdReport.WpfUi.Views.EventsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:OutlookAdReport.WpfUi.Views"
+    xmlns:reactiveUi="http://reactiveui.net"
+    xmlns:viewModels="clr-namespace:OutlookAdReport.WpfUi.ViewModels"
+    mc:Ignorable="d" 
+    d:DesignHeight="350" d:DesignWidth="850">
+    <Grid>
+        <Expander IsExpanded="True">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Auswertung</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <DataGrid Name="EventsGrid" AutoGenerateColumns="False" MaxHeight="350" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Date, StringFormat='{}{0:d.M}' }" />
+                    <DataGridTextColumn Header="Kunde / Betreff" Binding="{Binding BusinessEvent.Customer}" />
+                    <DataGridTextColumn Header="AP / Maßnahme" Binding="{Binding BusinessEvent.Contact}" />
+                    <DataGridTextColumn Header="Straße" Binding="{Binding BusinessEvent.Street}" />
+                    <DataGridTextColumn Header="PLZ" Binding="{Binding BusinessEvent.ZipCode}" />
+                    <DataGridTextColumn Header="Ort" Binding="{Binding BusinessEvent.City}" />
+                    <DataGridTextColumn Header="Bemerkungen" Binding="{Binding BusinessEvent.Remarks}" />
+                    <DataGridTextColumn Header="Abfahrt" Binding="{Binding Departure, StringFormat='{}{0:HH:mm}'}" />
+                    <DataGridTextColumn Header="Büro" Binding="{Binding Office, StringFormat=hh\\:mm}" />
+                    <DataGridTextColumn Header="Urlaub" />
+                    <DataGridTextColumn Header="Krank" />
+                    <DataGridTextColumn Header="Heimkehr" Binding="{Binding Arrival, StringFormat='{}{0:HH:mm}'}" />
+                    <DataGridTextColumn Header="Spesen" />
+                    <DataGridTextColumn Header="Arbeitszeit" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Expander>
+    </Grid>
+</reactiveUi:ReactiveUserControl>

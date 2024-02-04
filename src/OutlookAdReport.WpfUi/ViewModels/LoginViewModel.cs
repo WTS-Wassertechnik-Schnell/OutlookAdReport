@@ -63,11 +63,7 @@ public class LoginViewModel : ReactiveObject
         var result = await LoginService.LoginAsync(Username, Password);
         EventService.ClearEvents();
         if (!result.IsAuthenticated)
-            EventService.AddEvent(new EventMessageModel
-            {
-                Message = result.Error!,
-                MessageType = EventMessageType.Error
-            });
+            EventService.AddEvent(result.Error!, EventMessageType.Error);
         else
             EventService.AddEvent(new EventMessageModel
             {

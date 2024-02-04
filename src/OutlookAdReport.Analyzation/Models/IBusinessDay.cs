@@ -1,21 +1,23 @@
-﻿using OutlookAdReport.Data.Models;
-
-namespace OutlookAdReport.Analyzation.Models;
+﻿namespace OutlookAdReport.Analyzation.Models;
 
 /// <summary> Interface for business day.</summary>
 public interface IBusinessDay
 {
-    /// <summary> Gets or sets the appointments.</summary>
-    /// <value> The appointments.</value>
-    public IEnumerable<IAppointment> Appointments { get; set; }
+    /// <summary> Gets or sets the events.</summary>
+    /// <value> The events.</value>
+    public IEnumerable<IBusinessEvent> Events { get; set; }
+
+    /// <summary> Gets or sets the office events.</summary>
+    /// <value> The office events.</value>
+    public IEnumerable<IBusinessEvent> OfficeEvents { get; set; }
 
     /// <summary> Gets or sets the departure.</summary>
     /// <value> The departure.</value>
-    public IAppointment? Departure { get; set; }
+    public IBusinessEvent? Departure { get; set; }
 
     /// <summary> Gets or sets the arrival.</summary>
     /// <value> The arrival.</value>
-    public IAppointment? Arrival { get; set; }
+    public IBusinessEvent? Arrival { get; set; }
 
     /// <summary> Gets or sets the time office.</summary>
     /// <value> The time office.</value>

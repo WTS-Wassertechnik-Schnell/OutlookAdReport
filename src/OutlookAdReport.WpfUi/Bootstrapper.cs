@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OutlookAdReport.Analyzation.Options;
+using OutlookAdReport.Analyzation.Services;
 using OutlookAdReport.Data.Services;
 using OutlookAdReport.ExchangeServer.Options;
 using OutlookAdReport.ExchangeServer.Services;
@@ -69,10 +70,12 @@ public class Bootstrapper
         services.AddSingleton<LoginViewModel>();
         services.AddSingleton<SearchViewModel>();
         services.AddSingleton<AppointmentsViewModel>();
+        services.AddSingleton<EventsViewModel>();
 
         // services
         services.AddSingleton<IEventService, EventService>();
         services.AddSingleton<ILoginService, ExchangeLoginService>();
         services.AddSingleton<IAppointmentQueryService, ExchangeAppointmentQueryService>();
+        services.AddSingleton<IBusinessDayAnalyzerService, DefaultBusinessDayAnalyzerService>();
     }
 }

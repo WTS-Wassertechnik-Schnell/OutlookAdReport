@@ -10,7 +10,7 @@
     xmlns:views="clr-namespace:OutlookAdReport.WpfUi.Views"
     xmlns:converters="clr-namespace:OutlookAdReport.WpfUi.Utils.Converters"
     mc:Ignorable="d"
-    Title="OutlookAdReport" Height="450" Width="800" WindowState="Maximized">
+    Title="OutlookAdReport" Height="450" Width="850" WindowState="Maximized">
     <Window.Resources>
         <converters:EventMessageTypeToColorConverter x:Key="StatusToColorConverter" />
     </Window.Resources>
@@ -46,7 +46,10 @@
                     </ListBox>
                 </Expander>
             </GroupBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
             <views:AppointmentsView x:Name="AppointmentsView" />
+            <views:EventsView x:Name="EventsView" />
         </StackPanel>
     </Grid>
 </reactiveUi:ReactiveWindow>

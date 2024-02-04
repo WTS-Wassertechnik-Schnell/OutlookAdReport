@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using OutlookAdReport.Analyzation.Services;
 using OutlookAdReport.Data.Models;
 using OutlookAdReport.Data.Services;
 using ReactiveUI;
@@ -14,15 +15,17 @@ public class SearchViewModel : ReactiveObject
     private DateTime _till;
 
     /// <summary> Default constructor.</summary>
-    /// <param name="queryService"> (Optional) The query service. </param>
-    /// <param name="eventService"> (Optional) The event service. </param>
-    /// <param name="loginService"> (Optional) The login service. </param>
+    /// <param name="queryService">       (Optional) The query service. </param>
+    /// <param name="eventService">       (Optional) The event service. </param>
+    /// <param name="loginService">       (Optional) The login service. </param>
+    /// <param name="dayAnalyzerService"> (Optional) The day analyzer service. </param>
     public SearchViewModel(IAppointmentQueryService? queryService = null, IEventService? eventService = null,
-        ILoginService? loginService = null)
+        ILoginService? loginService = null, IBusinessDayAnalyzerService? dayAnalyzerService = null)
     {
         QueryService = queryService ?? Locator.Current.GetService<IAppointmentQueryService>()!;
         EventService = eventService ?? Locator.Current.GetService<IEventService>()!;
         LoginService = loginService ?? Locator.Current.GetService<ILoginService>()!;
+        DayAnalyzerService = dayAnalyzerService ?? Locator.Current.GetService<IBusinessDayAnalyzerService>()!;
 
         var today = DateTime.Today;
         var month = new DateTime(today.Year, today.Month, 1);
@@ -44,6 +47,10 @@ public class SearchViewModel : ReactiveObject
     /// <summary> Gets the login service.</summary>
     /// <value> The login service.</value>
     public ILoginService LoginService { get; }
+
+    /// <summary> Gets the day analyzer service.</summary>
+    /// <value> The day analyzer service.</value>
+    public IBusinessDayAnalyzerService DayAnalyzerService { get; }
 
     /// <summary> Gets the 'query appointments' command.</summary>
     /// <value> The 'query appointments' command.</value>
@@ -70,6 +77,12 @@ public class SearchViewModel : ReactiveObject
     /// <returns> A Task.</returns>
     public async Task QueryAppointmentsAsync(CancellationToken ct)
     {
+        await QueryAppointmentsAsyncInternal();
+        await AnalyzeAppointmentsInternal();
+    }
+
+    private async Task QueryAppointmentsAsyncInternal()
+    {
         try
         {
             await QueryService.QueryAppointments(LoginService.LoginResult!, From, Till);
@@ -81,11 +94,27 @@ public class SearchViewModel : ReactiveObject
         }
         catch (Exception e)
         {
+            EventService.AddEvent(e.Message, EventMessageType.Error);
+        }
+    }
+
+    /// <summary> Analyze appointments internal.</summary>
+    /// <returns> A Task.</returns>
+    private Task AnalyzeAppointmentsInternal()
+    {
+        try
+        {
+            DayAnalyzerService.Analyze(QueryService.Appointments);
             EventService.AddEvent(new EventMessageModel
             {
-                Message = e.Message,
-                MessageType = EventMessageType.Error
+                Message = $"Analyzed {DayAnalyzerService.BusinessDays.Count} days with {DayAnalyzerService.BusinessEvents.Count} events."
             });
         }
+        catch (Exception e)
+        {
+            EventService.AddEvent(e.Message, EventMessageType.Error);
+        }
+
+        return Task.CompletedTask;
     }
 }

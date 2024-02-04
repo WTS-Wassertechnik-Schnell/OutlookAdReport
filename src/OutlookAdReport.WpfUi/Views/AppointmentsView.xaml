@@ -14,7 +14,6 @@
             <Expander.Header>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Termine</TextBlock>
-                    <TextBlock Name="CountAppointmentsTextBlock" />
                 </StackPanel>
             </Expander.Header>
             <DataGrid Name="AppointmentsGrid" AutoGenerateColumns="False" MaxHeight="250" IsReadOnly="True">

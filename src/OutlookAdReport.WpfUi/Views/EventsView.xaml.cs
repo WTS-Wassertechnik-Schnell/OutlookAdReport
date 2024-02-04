@@ -5,27 +5,27 @@ using Splat;
 
 namespace OutlookAdReport.WpfUi.Views;
 
-/// <summary> The appointments view.</summary>
-public partial class AppointmentsView
+/// <summary> The events view.</summary>
+public partial class EventsView
 {
     /// <summary> Default constructor.</summary>
-    public AppointmentsView() : this(null)
+    public EventsView() : this(null)
     {
     }
 
     /// <summary> Default constructor.</summary>
     /// <param name="viewModel"> (Optional) The view model. </param>
-    public AppointmentsView(AppointmentsViewModel? viewModel = null)
+    public EventsView(EventsViewModel? viewModel = null)
     {
         InitializeComponent();
-        ViewModel = viewModel ?? Locator.Current.GetService<AppointmentsViewModel>();
+        ViewModel = viewModel ?? Locator.Current.GetService<EventsViewModel>()!;
 
         // bindings
         this.WhenActivated(disposableRegistration =>
         {
             this.OneWayBind(ViewModel,
-                    vm => vm.Appointments,
-                    view => view.AppointmentsGrid.ItemsSource)
+                    vm => vm.Events,
+                    view => view.EventsGrid.ItemsSource)
                 .DisposeWith(disposableRegistration);
         });
     }
