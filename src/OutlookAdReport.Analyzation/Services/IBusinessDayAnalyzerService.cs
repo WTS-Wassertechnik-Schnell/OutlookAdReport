@@ -50,4 +50,9 @@ public interface IBusinessDayAnalyzerService : INotifyPropertyChanged
     /// <param name="businessEvent"> The business event. </param>
     /// <returns> True if celebration, false if not.</returns>
     public bool IsCelebration(IBusinessEvent businessEvent);
+
+    /// <summary> Query if 'businessEvent' is pause.</summary>
+    /// <param name="businessEvent"> The business event. </param>
+    /// <returns> True if pause, false if not.</returns>
+    public bool IsPause(IBusinessEvent businessEvent);
 }

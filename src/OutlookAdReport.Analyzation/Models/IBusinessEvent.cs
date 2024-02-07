@@ -44,4 +44,32 @@ public interface IBusinessEvent : INotifyPropertyChanged
     /// <summary> Gets or sets the remarks.</summary>
     /// <value> The remarks.</value>
     public string Remarks { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is departure.</summary>
+    /// <value> True if this object is departure, false if not.</value>
+    public bool IsDeparture { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is arrival.</summary>
+    /// <value> True if this object is arrival, false if not.</value>
+    public bool IsArrival { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is office.</summary>
+    /// <value> True if this object is office, false if not.</value>
+    public bool IsOffice { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is pause.</summary>
+    /// <value> True if this object is pause, false if not.</value>
+    public bool IsPause { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is vacation.</summary>
+    /// <value> True if this object is vacation, false if not.</value>
+    public bool IsVacation { get; set; }
+
+    /// <summary> Gets a value indicating whether this object is sick.</summary>
+    /// <value> True if this object is sick, false if not.</value>
+    public bool IsSick { get; set; }
+
+    /// <summary> Gets or sets a value indicating whether this object is celebration.</summary>
+    /// <value> True if this object is celebration, false if not.</value>
+    public bool IsCelebration { get; set; }
 }

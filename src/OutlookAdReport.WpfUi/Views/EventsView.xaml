@@ -20,19 +20,19 @@
             <DataGrid Name="EventsGrid" AutoGenerateColumns="False" MaxHeight="350" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum" Binding="{Binding Date, StringFormat='{}{0:d.M}' }" />
-                    <DataGridTextColumn Header="Kunde / Betreff" Binding="{Binding BusinessEvent.Customer}" />
-                    <DataGridTextColumn Header="AP / Maßnahme" Binding="{Binding BusinessEvent.Contact}" />
+                    <DataGridTextColumn Header="Kunde / Betreff" Binding="{Binding BusinessEvent.Customer}" MaxWidth="100" />
+                    <DataGridTextColumn Header="AP / Maßnahme" Binding="{Binding BusinessEvent.Contact}" MaxWidth="100" />
                     <DataGridTextColumn Header="Straße" Binding="{Binding BusinessEvent.Street}" />
                     <DataGridTextColumn Header="PLZ" Binding="{Binding BusinessEvent.ZipCode}" />
                     <DataGridTextColumn Header="Ort" Binding="{Binding BusinessEvent.City}" />
-                    <DataGridTextColumn Header="Bemerkungen" Binding="{Binding BusinessEvent.Remarks}" />
+                    <DataGridTextColumn Header="Bemerkungen" Binding="{Binding BusinessEvent.Remarks}" MaxWidth="100" />
                     <DataGridTextColumn Header="Abfahrt" Binding="{Binding Departure, StringFormat='{}{0:HH:mm}'}" />
-                    <DataGridTextColumn Header="Büro" Binding="{Binding Office, StringFormat=hh\\:mm}" />
+                    <DataGridTextColumn Header="Büro" Binding="{Binding OfficeString}" />
                     <DataGridTextColumn Header="Urlaub" />
                     <DataGridTextColumn Header="Krank" />
                     <DataGridTextColumn Header="Heimkehr" Binding="{Binding Arrival, StringFormat='{}{0:HH:mm}'}" />
-                    <DataGridTextColumn Header="Spesen" />
-                    <DataGridTextColumn Header="Arbeitszeit" />
+                    <DataGridTextColumn Header="Spesen" Binding="{Binding Total, StringFormat='{}{0:hh\\:mm}'}" />
+                    <DataGridTextColumn Header="Arbeitszeit" Binding="{Binding Working, StringFormat='{}{0:hh\\:mm}'}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Expander>

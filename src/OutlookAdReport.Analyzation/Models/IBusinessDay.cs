@@ -1,4 +1,6 @@
-﻿namespace OutlookAdReport.Analyzation.Models;
+﻿using System.Collections.ObjectModel;
+
+namespace OutlookAdReport.Analyzation.Models;
 
 /// <summary> Interface for business day.</summary>
 public interface IBusinessDay
@@ -22,6 +24,10 @@ public interface IBusinessDay
     /// <summary> Gets or sets the time office.</summary>
     /// <value> The time office.</value>
     public TimeSpan TimeOffice { get; set; }
+
+    /// <summary> Gets or sets the time pause.</summary>
+    /// <value> The time pause.</value>
+    public TimeSpan TimePause { get; set; }
 
     /// <summary> Gets or sets the time working.</summary>
     /// <value> The time working.</value>

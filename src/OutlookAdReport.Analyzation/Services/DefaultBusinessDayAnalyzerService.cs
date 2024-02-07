@@ -16,6 +16,10 @@ public class DefaultBusinessDayAnalyzerService : IBusinessDayAnalyzerService
     /// <value> The event service.</value>
     public IEventService EventService { get; }
 
+    /// <summary> Gets the manager for pause.</summary>
+    /// <value> The pause manager.</value>
+    public IPauseManager PauseManager { get; }
+
     /// <summary> Gets options for controlling the operation.</summary>
     /// <value> The options.</value>
     public AnalyzationOptions Options { get; }
@@ -34,9 +38,11 @@ public class DefaultBusinessDayAnalyzerService : IBusinessDayAnalyzerService
     /// <summary> Constructor.</summary>
     /// <param name="options">      Options for controlling the operation. </param>
     /// <param name="eventService"> The event service. </param>
-    public DefaultBusinessDayAnalyzerService(IOptions<AnalyzationOptions> options, IEventService eventService)
+    /// <param name="pauseManager"> Manager for pause. </param>
+    public DefaultBusinessDayAnalyzerService(IOptions<AnalyzationOptions> options, IEventService eventService, IPauseManager pauseManager)
     {
         EventService = eventService;
+        PauseManager = pauseManager;
         Options = options.Value;
     }
 
@@ -51,7 +57,7 @@ public class DefaultBusinessDayAnalyzerService : IBusinessDayAnalyzerService
         var days = appointments
             .GroupBy(a => a.Start.Date)
             .OrderBy(g => g.Key)
-            .Select(g => new DefaultBusinessDay(this, EventService, g))
+            .Select(g => new DefaultBusinessDay(this, EventService, PauseManager, g))
             .ToList();
         
         foreach (var day in days)
@@ -124,6 +130,16 @@ public class DefaultBusinessDayAnalyzerService : IBusinessDayAnalyzerService
         return
             !string.IsNullOrWhiteSpace(businessEvent.Customer) &&
             businessEvent.Customer.StartsWith(Options.CelebrationKey);
+    }
+
+    /// <summary> Query if 'businessEvent' is pause.</summary>
+    /// <param name="businessEvent"> The business event. </param>
+    /// <returns> True if pause, false if not.</returns>
+    public bool IsPause(IBusinessEvent businessEvent)
+    {
+        return
+            !string.IsNullOrWhiteSpace(businessEvent.Customer) &&
+            businessEvent.Customer.Equals(Options.PauseKey);
     }
 
     /// <summary> Executes the 'property changed' action.</summary>

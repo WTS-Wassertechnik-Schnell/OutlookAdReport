@@ -26,24 +26,45 @@ public class EventViewModel : ReactiveObject
     /// <value> The office.</value>
     public TimeSpan? Office { get; set; }
 
+    /// <summary> Gets the office string.</summary>
+    /// <value> The office string.</value>
+    public string? OfficeString
+    {
+        get
+        {
+            if (Office == null) return null;
+            return (Office < TimeSpan.Zero ? "-" : "") + Office.Value.ToString("hh\\:mm");
+        }
+    }
+
+    /// <summary> Gets or sets the number of. </summary>
+    /// <value> The total.</value>
+    public TimeSpan? Total { get; set; }
+
+    /// <summary> Gets or sets the working.</summary>
+    /// <value> The working.</value>
+    public TimeSpan? Working { get; set; }
+
     /// <summary> Constructor.</summary>
     /// <param name="businessEvent"> The business event. </param>
     public EventViewModel(IBusinessEvent businessEvent)
     {
         BusinessEvent = businessEvent;
 
-        if (businessEvent == businessEvent.Day.Departure)
+        if (businessEvent.IsDeparture)
+        {
             Departure = businessEvent.Start;
+            Total = businessEvent.Day.TimeTotal;
+            Working = businessEvent.Day.TimeWorking;
+        }
 
-        if (businessEvent == businessEvent.Day.Arrival)
+        if (businessEvent.IsArrival)
             Arrival = businessEvent.Start;
 
-        if (businessEvent.Day.OfficeEvents.Any())
-        {
-            if (businessEvent.Day.OfficeEvents.Contains(businessEvent))
-            {
-                Office = businessEvent.End - businessEvent.Start;
-            }
-        }
+        if (businessEvent.IsOffice)
+            Office = businessEvent.Duration;
+
+        if (businessEvent.IsPause)
+            Office = businessEvent.Duration;
     }
 }
