@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace OutlookAdReport.Analyzation.Models;
+﻿namespace OutlookAdReport.Analyzation.Models;
 
 /// <summary> Interface for business day.</summary>
 public interface IBusinessDay
@@ -28,6 +26,18 @@ public interface IBusinessDay
     /// <summary> Gets or sets the time pause.</summary>
     /// <value> The time pause.</value>
     public TimeSpan TimePause { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is sick. </summary>
+    /// <value> True if this object is sick, false if not. </value>
+    public bool IsSick { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is celebration. </summary>
+    /// <value> True if this object is celebration, false if not. </value>
+    public bool IsCelebration { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is vacation. </summary>
+    /// <value> True if this object is vacation, false if not. </value>
+    public bool IsVacation { get; set; }
 
     /// <summary> Gets or sets the time working.</summary>
     /// <value> The time working.</value>

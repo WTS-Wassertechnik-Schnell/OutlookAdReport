@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 using OutlookAdReport.Data.Models;
-using OutlookAdReport.WpfUi.ViewModels;
+// ReSharper disable NullnessAnnotationConflictWithJetBrainsAnnotations
 
 namespace OutlookAdReport.WpfUi.Utils.Converters;
 

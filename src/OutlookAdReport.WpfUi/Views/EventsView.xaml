@@ -8,8 +8,13 @@
     xmlns:local="clr-namespace:OutlookAdReport.WpfUi.Views"
     xmlns:reactiveUi="http://reactiveui.net"
     xmlns:viewModels="clr-namespace:OutlookAdReport.WpfUi.ViewModels"
+    xmlns:views="clr-namespace:OutlookAdReport.WpfUi.Views"
+    xmlns:converters="clr-namespace:OutlookAdReport.WpfUi.Utils.Converters"
     mc:Ignorable="d" 
     d:DesignHeight="350" d:DesignWidth="850">
+    <UserControl.Resources>
+        <converters:BoolToStringConverter x:Key="BooleanToStringConverter" FalseValue="" TrueValue="1" />
+    </UserControl.Resources>
     <Grid>
         <Expander IsExpanded="True">
             <Expander.Header>
@@ -28,8 +33,9 @@
                     <DataGridTextColumn Header="Bemerkungen" Binding="{Binding BusinessEvent.Remarks}" MaxWidth="100" />
                     <DataGridTextColumn Header="Abfahrt" Binding="{Binding Departure, StringFormat='{}{0:HH:mm}'}" />
                     <DataGridTextColumn Header="Büro" Binding="{Binding OfficeString}" />
-                    <DataGridTextColumn Header="Urlaub" />
-                    <DataGridTextColumn Header="Krank" />
+                    <DataGridTextColumn Header="Urlaub" Binding="{Binding BusinessEvent.IsVacation, Converter={StaticResource BooleanToStringConverter}}" />
+                    <DataGridTextColumn Header="Feiertag" Binding="{Binding BusinessEvent.IsCelebration, Converter={StaticResource BooleanToStringConverter}}" />
+                    <DataGridTextColumn Header="Krank" Binding="{Binding BusinessEvent.IsSick, Converter={StaticResource BooleanToStringConverter}}" />
                     <DataGridTextColumn Header="Heimkehr" Binding="{Binding Arrival, StringFormat='{}{0:HH:mm}'}" />
                     <DataGridTextColumn Header="Spesen" Binding="{Binding Total, StringFormat='{}{0:hh\\:mm}'}" />
                     <DataGridTextColumn Header="Arbeitszeit" Binding="{Binding Working, StringFormat='{}{0:hh\\:mm}'}" />

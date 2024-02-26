@@ -1,7 +1,6 @@
 ﻿using OutlookAdReport.Analyzation.Services;
 using OutlookAdReport.Data.Models;
 using OutlookAdReport.Data.Services;
-using System.Collections.ObjectModel;
 
 namespace OutlookAdReport.Analyzation.Models;
 
@@ -61,14 +60,32 @@ public class DefaultBusinessDay : IBusinessDay
         var vacations = events
             .Where(e => DayAnalyzerService.IsVacation(e))
             .ToList();
+        if (vacations.Any())
+        {
+            IsVacation = true;
+            foreach (var vacation in vacations)
+                vacation.IsVacation = true;
+        }
 
         var sickEvents = events
             .Where(e => DayAnalyzerService.IsSick(e))
             .ToList();
+        if (sickEvents.Any())
+        {
+            IsSick = true;
+            foreach (var sd in sickEvents)
+                sd.IsSick = true;
+        }
 
         var celebEvents = events
             .Where(e => DayAnalyzerService.IsCelebration(e))
             .ToList();
+        if (celebEvents.Any())
+        {
+            IsCelebration = true;
+            foreach (var celeb in celebEvents)
+                celeb.IsCelebration = true;
+        }
 
         if (vacations.Any() || sickEvents.Any() || celebEvents.Any())
         {
@@ -215,6 +232,18 @@ public class DefaultBusinessDay : IBusinessDay
     /// <summary> Gets or sets the time pause.</summary>
     /// <value> The time pause.</value>
     public TimeSpan TimePause { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is sick. </summary>
+    /// <value> True if this object is sick, false if not. </value>
+    public bool IsSick { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is celebration. </summary>
+    /// <value> True if this object is celebration, false if not. </value>
+    public bool IsCelebration { get; set; }
+
+    /// <summary>   Gets or sets a value indicating whether this object is vacation. </summary>
+    /// <value> True if this object is vacation, false if not. </value>
+    public bool IsVacation { get; set; }
 
     /// <summary> Gets or sets the time working.</summary>
     /// <value> The time working.</value>
