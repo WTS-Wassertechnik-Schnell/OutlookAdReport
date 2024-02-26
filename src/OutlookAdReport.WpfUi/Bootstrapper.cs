@@ -7,6 +7,8 @@ using OutlookAdReport.Analyzation.Services;
 using OutlookAdReport.Data.Services;
 using OutlookAdReport.ExchangeServer.Options;
 using OutlookAdReport.ExchangeServer.Services;
+using OutlookAdReport.Export.ExcelExport;
+using OutlookAdReport.Export.ExcelExport.Options;
 using OutlookAdReport.WpfUi.Utils;
 using OutlookAdReport.WpfUi.ViewModels;
 using OutlookAdReport.WpfUi.Views;
@@ -61,6 +63,7 @@ public class Bootstrapper
         // options
         services.Configure<ExchangeOptions>(configuration.GetSection("ExchangeServer"));
         services.Configure<AnalyzationOptions>(configuration.GetSection("AnalyzationOptions"));
+        services.Configure<ExportOptions>(configuration.GetSection("ExportOptions"));
 
         // views
         services.AddSingleton<AppWindow>();
@@ -71,6 +74,7 @@ public class Bootstrapper
         services.AddSingleton<SearchViewModel>();
         services.AddSingleton<AppointmentsViewModel>();
         services.AddSingleton<EventsViewModel>();
+        services.AddSingleton<ExportViewModel>();
 
         // services
         services.AddSingleton<IEventService, EventService>();
@@ -78,5 +82,6 @@ public class Bootstrapper
         services.AddSingleton<IAppointmentQueryService, ExchangeAppointmentQueryService>();
         services.AddSingleton<IBusinessDayAnalyzerService, DefaultBusinessDayAnalyzerService>();
         services.AddSingleton<IPauseManager, DefaultPauseManager>();
+        services.AddSingleton<IExport, ExcelFileExport>();
     }
 }

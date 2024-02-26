@@ -24,6 +24,7 @@
                 <StackPanel Orientation="Horizontal">
                     <views:LoginView x:Name="LoginView" />
                     <views:SearchView x:Name="SearchView" />
+                    <views:ExportView x:Name="ExportView" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Name="OutputGroupBox" Header="Ausgabe">

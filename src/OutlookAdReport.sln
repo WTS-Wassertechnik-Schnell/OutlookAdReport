@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.ExchangeServer", "OutlookAdReport.ExchangeServer\OutlookAdReport.ExchangeServer.csproj", "{EB90DF9D-0C3D-4D52-8C49-37900C49DFAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAdReport.Analyzation", "OutlookAdReport.Analyzation\OutlookAdReport.Analyzation.csproj", "{4BD63D7C-21F5-45A1-BB88-98F049E34D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OutlookAdReport.Analyzation", "OutlookAdReport.Analyzation\OutlookAdReport.Analyzation.csproj", "{4BD63D7C-21F5-45A1-BB88-98F049E34D7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAdReport.Export.ExcelExport", "OutlookAdReport.Export.ExcelExport\OutlookAdReport.Export.ExcelExport.csproj", "{9AC9101E-165F-49C8-8206-E31C53CBECE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4BD63D7C-21F5-45A1-BB88-98F049E34D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD63D7C-21F5-45A1-BB88-98F049E34D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD63D7C-21F5-45A1-BB88-98F049E34D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AC9101E-165F-49C8-8206-E31C53CBECE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AC9101E-165F-49C8-8206-E31C53CBECE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AC9101E-165F-49C8-8206-E31C53CBECE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AC9101E-165F-49C8-8206-E31C53CBECE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
