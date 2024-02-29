@@ -82,6 +82,7 @@ public class Bootstrapper
         services.AddSingleton<IAppointmentQueryService, ExchangeAppointmentQueryService>();
         services.AddSingleton<IBusinessDayAnalyzerService, DefaultBusinessDayAnalyzerService>();
         services.AddSingleton<IPauseManager, DefaultPauseManager>();
+        services.AddSingleton<IMealAllowanceManager, DefaultMealAllowanceManager>();
         services.AddSingleton<IExport, ExcelFileExport>();
     }
 }

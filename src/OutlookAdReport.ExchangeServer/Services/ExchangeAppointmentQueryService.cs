@@ -70,12 +70,15 @@ public class ExchangeAppointmentQueryService : IAppointmentQueryService
             AppointmentSchema.Location,
             ItemSchema.Categories,
             AppointmentSchema.IsRecurring,
-            ItemSchema.Sensitivity
+            ItemSchema.Sensitivity,
+            AppointmentSchema.LegacyFreeBusyStatus
         };
 
         await service.LoadPropertiesForItems(exchangeAppointments, set);
 
-        var appointments = exchangeAppointments
+        var freeApts = exchangeAppointments.Where(a => a.LegacyFreeBusyStatus == LegacyFreeBusyStatus.Free);
+
+        var appointments = exchangeAppointments.Except(freeApts)
             .Where(a => Options.Value.RespectPrivacy == false || a.Sensitivity != Sensitivity.Private)
             .Select(a =>
                 new DefaultAppointment(a.Subject, a.Location, a.TextBody, a.Start, a.End))

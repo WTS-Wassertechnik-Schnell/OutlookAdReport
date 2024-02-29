@@ -31,7 +31,27 @@ public class AnalyzationOptions
     /// <value> The celebration key.</value>
     public string CelebrationKey { get; set; } = string.Empty;
 
-    /// <summary> Gets or sets options for controlling the pause.</summary>
-    /// <value> Options that control the pause.</value>
+    /// <summary>
+    ///     Gets or sets a value indicating whether the display meal allowance on insufficient.
+    /// </summary>
+    /// <value> True if display meal allowance on insufficient, false if not. </value>
+    public bool DisplayMealAllowanceOnInsufficient { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether the display meal allowance on emtpty.
+    /// </summary>
+    /// <value> True if display meal allowance on emtpty, false if not. </value>
+    public bool DisplayMealAllowanceOnEmtpty { get; set; }
+
+    /// <summary>   Gets or sets the full office day. </summary>
+    /// <value> The full office day. </value>
+    public TimeSpan FullOfficeDay { get; set; }
+
+    /// <summary>   Gets or sets options for controlling the pause. </summary>
+    /// <value> Options that control the pause. </value>
     public IEnumerable<PauseOption> PauseOptions { get; set; } = new List<PauseOption>();
+
+    /// <summary>   Gets or sets options for controlling the meal allowance. </summary>
+    /// <value> Options that control the meal allowance. </value>
+    public IEnumerable<MealAllowanceOption> MealAllowanceOptions { get; set; } = new List<MealAllowanceOption>();
 }

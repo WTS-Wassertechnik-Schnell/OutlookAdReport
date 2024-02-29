@@ -62,22 +62,24 @@ public class ExportViewModel : ReactiveObject
     /// <summary>   Export asynchronous. </summary>
     /// <param name="ct">   A token that allows processing to be cancelled. </param>
     /// <returns>   A Task. </returns>
-    public Task ExportAsync(CancellationToken ct)
+    public async Task ExportAsync(CancellationToken ct)
     {
         try
         {
-            _exportService.Export(Events);
+            await Task.Factory.StartNew(() =>
+            {
+                _exportService.Export(Events);
+            }, ct);
 
             EventService.AddEvent(new EventMessageModel
             {
-                Message = $"Exportet {DayAnalyzerService.BusinessDays.Count} days with {DayAnalyzerService.BusinessEvents.Count} events."
+                Message =
+                    $"Exportet {DayAnalyzerService.BusinessDays.Count} days with {DayAnalyzerService.BusinessEvents.Count} events."
             });
         }
         catch (Exception e)
         {
             EventService.AddEvent(e.Message, EventMessageType.Error);
         }
-
-        return Task.CompletedTask;
     }
 }
